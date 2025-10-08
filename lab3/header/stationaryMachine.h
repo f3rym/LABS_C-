@@ -1,3 +1,4 @@
+#include "../header.h"
 #include "computer.h"
 
 class StationaryMachine : public Computer

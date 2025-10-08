@@ -1,9 +1,5 @@
-#include <iostream>
-#include <iomanip>
-#include <cstring>
+#include "../header.h"
 
-
-#define MAX_STR 80
 
 class Computer
 {

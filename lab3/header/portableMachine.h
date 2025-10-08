@@ -1,4 +1,5 @@
-#include "../computer.h"
+#include "../header.h"
+#include "computer.h"
 
 class PortableMachine : public Computer
 {

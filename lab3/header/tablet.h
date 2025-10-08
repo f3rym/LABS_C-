@@ -1,4 +1,4 @@
-#include "computer.h"
+#include "../header.h"
 #include "portableMachine.h"
 
 class Tablet : public PortableMachine

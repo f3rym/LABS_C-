@@ -1,3 +1,4 @@
+#include "../header.h"
 #include "portableMachine.h"
 
 class Laptop : public PortableMachine
