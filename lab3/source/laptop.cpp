@@ -1,27 +1,26 @@
 #include "../header.h"
 
-//#include "../header/portableMachine.h"
+// #include "../header/portableMachine.h"
 #include "../header/laptop.h"
 
-Laptop::Laptop() : PortableMachine()
+std::ostream &operator<<(std::ostream &os, Laptop &lap)
 {
-    bool hasBacklitKeyboard;
+    PortableMachine &pm = lap;
+    os << pm;
+    os << "Клавиатура " << (lap.hasBacklitKeyboard ? "имеет подсветку." : "НЕ имеет подсветку.");
+    return os;
 }
-Laptop::Laptop(char *name, char *processor, int ram, int butteryHealth, int sizeDisplay, bool hasBacklitKeyboard) : PortableMachine(name, processor, ram, butteryHealth, sizeDisplay)
+std::istream &operator>>(std::istream &is, Laptop &lap)
 {
-    this->hasBacklitKeyboard = hasBacklitKeyboard;
+    PortableMachine &pm = lap;
+    is >> pm;
+    std::cout << "Есть подсветка клавиатуры? (1-да, 0-нет): ";
+    is >> lap.hasBacklitKeyboard;
+    return is;
 }
-Laptop::Laptop(const Laptop &other) : PortableMachine(other)
-{
-    this->hasBacklitKeyboard = other.hasBacklitKeyboard;
-}
-void Laptop::print()
-{
-    PortableMachine::print();
-    std::cout << "Клавиатура ";
 
-    if (hasBacklitKeyboard == true)
-        std::cout << "имеет подсветку." << std::endl;
-    else
-        std::cout << "НЕ имеет подсветку." << std::endl;
+void Laptop::info()
+{
+    PortableMachine::info();
+    std::cout << "- Ноутбук";
 }

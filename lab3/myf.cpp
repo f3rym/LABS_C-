@@ -46,9 +46,10 @@ void menu()
             // Создать обычный компьютер
             if (deviceCount < MAX_DEVICES)
             {
-                std::cin >> devices[deviceCount];
+                Computer temp;
 
-                devices[deviceCount] = new Computer(name, processor, ram);
+                std::cin >> temp;
+                devices[deviceCount] = new Computer(temp);
                 deviceCount++;
                 std::cout << "Компьютер создан!" << std::endl;
             }
@@ -213,7 +214,7 @@ void menu()
             for (int i = 0; i < 6; i++)
             {
                 std::cout << "\n--- Тип " << (i + 1) << " ---" << std::endl;
-                testDevices[i]->print(); // Полиморфный вызов!
+            //    testDevices[i]->print(); // Полиморфный вызов!
                 delete testDevices[i];
             }
             break;

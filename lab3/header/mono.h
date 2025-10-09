@@ -8,9 +8,26 @@ class MonoBlock : public StationaryMachine
     bool touchScreen;
 
 public:
-    MonoBlock();
-    MonoBlock(char *name, char *processor, int ram, int butteryHealth, int sizeDisplay, bool touchScreen);
-    MonoBlock(const MonoBlock &other);
-    virtual ~MonoBlock() {};
-    virtual void print() override;
+    MonoBlock() : StationaryMachine()
+    {
+        sizeDisplay = 0;
+        touchScreen = false;
+    };
+    MonoBlock(char *name, char *processor, int ram, int batteryHealth, int PCISlots, int sizeDisplay, bool touchScreen)
+        : StationaryMachine(name, processor, ram, PCISlots)
+    {
+        this->sizeDisplay = sizeDisplay;
+        this->touchScreen = touchScreen;
+    };
+    MonoBlock(const MonoBlock &other) : StationaryMachine(other)
+    {
+        this->sizeDisplay = other.sizeDisplay;
+        this->touchScreen = other.touchScreen;
+    };
+    friend std::ostream &operator<<(std::ostream &os, MonoBlock &mono);
+    friend std::istream &operator>>(std::istream &is, MonoBlock &mono);
+    virtual int getPowerConsumption() override;
+    virtual void info() override;
+
+    virtual ~MonoBlock() = default;
 };

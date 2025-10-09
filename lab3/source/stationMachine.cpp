@@ -1,19 +1,24 @@
 #include "../header/stationaryMachine.h"
 
-StationaryMachine::StationaryMachine() : Computer()
+std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 {
-    PCISlots = 0;
+    Computer &comp = sm;
+    os << comp;
+    os << "Количество PCI слотов: " << sm.PCISlots << std::endl;
+    return os;
 }
-StationaryMachine::StationaryMachine(char *name, char *processor, int ram, int PCISlots) : Computer(name, processor, ram)
+
+std::istream &operator>>(std::istream &is, StationaryMachine &sm)
 {
-    this->PCISlots = PCISlots;
+    Computer &comp = sm;
+    is >> comp;
+    std::cout << "Введите количество PCI слотов: ";
+    is >> sm.PCISlots;
+    return is;
 }
-StationaryMachine::StationaryMachine(const StationaryMachine &other) : Computer(other)
+
+void StationaryMachine::info()
 {
-    this->PCISlots = other.PCISlots;
-}
-void StationaryMachine::print()
-{
-    Computer::print();
-    std::cout << "Количество PCI слотов: " << PCISlots << std::endl;
+    Computer::info();
+    std::cout << "- Стационарная";
 }

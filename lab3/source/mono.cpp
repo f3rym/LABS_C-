@@ -2,25 +2,29 @@
 #include "../header/mono.h"
 // #include "../header/stationaryMachine.h"
 
-MonoBlock::MonoBlock() : StationaryMachine()
+std::ostream &operator<<(std::ostream &os, MonoBlock &mb)
 {
-    sizeDisplay = 0;
-    touchScreen = false;
+    StationaryMachine& sm = mb;
+    os << sm;
+    os << "Размер дисплея: " << mb.sizeDisplay << " дюймов" << std::endl;
+    if (mb.touchScreen == true)
+        os << "Имеется Сенсорный экран." << std::endl;
+    return os;
 }
-MonoBlock::MonoBlock(char *name, char *processor, int ram, int PCISlots, int sizeDisplay, bool touchScreen) : StationaryMachine(name, processor, ram, PCISlots)
+
+std::istream &operator>>(std::istream &is, MonoBlock &mb)
 {
-    this->sizeDisplay = sizeDisplay;
-    this->touchScreen = touchScreen;
+    StationaryMachine &sm = mb;
+    is >> sm;
+    std::cout << "Введите размер дисплея: ";
+    is >> mb.sizeDisplay;
+    std::cout << "Имеется Сенсорный экран? (1 - ДА, 0 - НЕТ): ";
+    is >> mb.touchScreen;
+    return is;
 }
-MonoBlock::MonoBlock(const MonoBlock &other) : StationaryMachine(other)
+
+void MonoBlock::info()
 {
-    this->sizeDisplay = other.sizeDisplay;
-    this->touchScreen = other.touchScreen;
-}
-void MonoBlock::print()
-{
-    StationaryMachine::print();
-    std::cout << "Размер дисплея: " << sizeDisplay << " дюймов" << std::endl;
-    if (touchScreen == true)
-        std::cout << "Имеется Сенсорный экран." << std::endl;
+    StationaryMachine::info();
+    std::cout << "- Моноблок";
 }

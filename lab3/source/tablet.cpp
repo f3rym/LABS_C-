@@ -2,20 +2,27 @@
 #include "../header/tablet.h"
 // #include "../header/portableMachine.h"
 
-Tablet::Tablet() : PortableMachine()
+
+
+std::ostream &operator<<(std::ostream &os, Tablet &tablet)
 {
-    char OS[MAX_STR];
+    PortableMachine &pm = tablet;
+    os << pm;
+    os << "Операционная система: " << tablet.OS << std::endl;
+    return os;
 }
-Tablet::Tablet(char *name, char *processor, int ram, int butteryHealth, int sizeDisplay, char *OS) : PortableMachine(name, processor, ram, butteryHealth, sizeDisplay)
+
+std::istream &operator>>(std::istream &is, Tablet &tablet)
 {
-    std::strcpy(this->OS, OS);
+    PortableMachine &pm = tablet;
+    is >> pm;
+    std::cout << "Введите операционную систему: ";
+    is.getline(tablet.OS, MAX_STR);
+    return is;
 }
-Tablet::Tablet(const Tablet &other) : PortableMachine(other)
+
+void Tablet::info()
 {
-    std::strcpy(this->OS, other.OS);
-}
-void Tablet::print()
-{
-    PortableMachine::print();
-    std::cout << "Операционная система: " << OS << std::endl;
+    PortableMachine::info();
+    std::cout << "- Планшет";
 }

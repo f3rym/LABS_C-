@@ -1,24 +1,29 @@
 #include "../header.h"
 #include "../header/portableMachine.h"
 
-PortableMachine::PortableMachine() : Computer()
+
+std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
 {
-    sizeDisplay = 0;
-    butteryHealth = 0;
+    Computer &com = pm;
+    os << com;
+    os << "Объем батареи: " << pm.batteryHealth << std::endl;
+    os << "Размер дисплея: " << pm.sizeDisplay << " дюймов." << std::endl;
+    return os;
 }
-PortableMachine::PortableMachine(char *name, char *processor, int ram, int butteryHealth, int sizeDisplay) : Computer(name, processor, ram)
+
+std::istream &operator>>(std::istream &is, PortableMachine &pm)
 {
-    this->butteryHealth = butteryHealth;
-    this->sizeDisplay = sizeDisplay;
+    Computer &com = pm;
+    is >> com;
+    std::cout << "Введите ёмкость батареи: ";
+    is >> pm.batteryHealth;
+    std::cout << "Введите размер дисплея: ";
+    is >> pm.sizeDisplay;
+    return is;
 }
-PortableMachine::PortableMachine(const PortableMachine &other) : Computer(other)
+
+void PortableMachine::info()
 {
-    this->butteryHealth = other.butteryHealth;
-    this->sizeDisplay = other.sizeDisplay;
-}
-void PortableMachine::print()
-{
-    Computer::print();
-    std::cout << "Объем батареи: " << butteryHealth << std::endl;
-    std::cout << "Размер дисплея: " << sizeDisplay << " дюймов." << std::endl;
+    Computer::info();
+    std::cout << "- Портативная";
 }
