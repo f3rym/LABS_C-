@@ -1,3 +1,6 @@
+#ifndef TABLET_H
+#define TABLET_H
+
 #include "../header.h"
 #include "portableMachine.h"
 
@@ -28,3 +31,5 @@ public:
     const char *getOS() const;
     void setOS(const char *OS);
 };
+
+#endif

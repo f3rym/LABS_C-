@@ -1,3 +1,6 @@
+#ifndef COMPUTER_H
+#define COMPUTER_H
+
 #include "../header.h"
 
 
@@ -33,3 +36,5 @@ public:
 
     virtual ~Computer() = default;
 };
+
+#endif

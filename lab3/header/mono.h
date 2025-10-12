@@ -1,5 +1,7 @@
-#include "../header.h"
+#ifndef MONO_H
+#define MONO_H
 
+#include "../header.h"
 #include "../header/stationaryMachine.h"
 
 class MonoBlock : public StationaryMachine
@@ -34,3 +36,5 @@ public:
     void setTouchScreen(bool touchScreen);
     void setSizeDisplay(int sizeDisplay);
 };
+
+#endif

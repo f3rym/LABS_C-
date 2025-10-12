@@ -1,3 +1,6 @@
+#ifndef LAPTOP_H
+#define LAPTOP_H
+
 #include "../header.h"
 #include "portableMachine.h"
 
@@ -8,7 +11,7 @@ class Laptop : public PortableMachine
 public:
     Laptop() : PortableMachine()
     {
-        bool hasBacklitKeyboard;
+        bool hasBacklitKeyboard = false;
     };
     Laptop(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay, bool hasBacklitKeyboard)
         : PortableMachine(name, processor, ram, batteryHealth, sizeDisplay)
@@ -27,3 +30,5 @@ public:
     bool getHasBacklitKeyboard() const;
     void setHasBacklitKeyboard(bool hasBacklitKeyboard);
 };
+
+#endif

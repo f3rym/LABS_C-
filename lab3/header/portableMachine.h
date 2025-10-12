@@ -1,3 +1,6 @@
+#ifndef PORTABLEMACHINE_H
+#define PORTABLEMACHINE_H
+
 #include "../header.h"
 #include "computer.h"
 
@@ -33,3 +36,5 @@ public:
     void setBatteryHealth(int batteryHealth);
     void setSizeDisplay(int sizeDisplay);
 };
+
+#endif

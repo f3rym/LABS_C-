@@ -17,9 +17,9 @@ std::ostream &operator<<(std::ostream &os, MonoBlock &mb)
 {
     StationaryMachine& sm = mb;
     os << sm;
-    os << "Размер дисплея: " << mb.sizeDisplay << " дюймов" << std::endl;
+    os << std::setw(8) << mb.sizeDisplay;
     if (mb.touchScreen == true)
-        os << "Имеется Сенсорный экран." << std::endl;
+        os << std::setw(8) << "Имеется";
     return os;
 }
 

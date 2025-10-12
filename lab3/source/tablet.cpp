@@ -16,7 +16,8 @@ std::ostream &operator<<(std::ostream &os, Tablet &tablet)
 {
     PortableMachine &pm = tablet;
     os << pm;
-    os << "Операционная система: " << tablet.OS << std::endl;
+    
+    os << std::setw(8) << tablet.OS;
     return os;
 }
 
@@ -25,6 +26,7 @@ std::istream &operator>>(std::istream &is, Tablet &tablet)
     PortableMachine &pm = tablet;
     is >> pm;
     std::cout << "Введите операционную систему: ";
+    std::cin.ignore();
     is.getline(tablet.OS, MAX_STR);
     return is;
 }

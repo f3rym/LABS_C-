@@ -16,8 +16,8 @@ std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
 {
     Computer &com = pm;
     os << com;
-    os << "Объем батареи: " << pm.batteryHealth << std::endl;
-    os << "Размер дисплея: " << pm.sizeDisplay << " дюймов." << std::endl;
+    os << std::setw(20) << pm.batteryHealth;
+    os << std::setw(20) << pm.sizeDisplay ;
     return os;
 }
 

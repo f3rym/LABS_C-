@@ -1,3 +1,6 @@
+#ifndef STATIONARYMACHINE_H
+#define STATIONARYMACHINE_H
+
 #include "../header.h"
 #include "computer.h"
 
@@ -28,3 +31,5 @@ public:
     int getPCISlots() const;
     void setPCISlots(int PCISlots);
 };
+
+#endif

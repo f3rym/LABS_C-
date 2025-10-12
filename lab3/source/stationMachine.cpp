@@ -14,7 +14,7 @@ std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 {
     Computer &comp = sm;
     os << comp;
-    os << "Количество PCI слотов: " << sm.PCISlots << std::endl;
+    os << std::setw(20) << sm.PCISlots;
     return os;
 }
 

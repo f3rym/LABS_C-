@@ -4,9 +4,21 @@
 #include <cstring>
 
 #define MAX_STR 80
+#define MAX_CMP 20
 
-void showMenu();
+class Computer;
+class PortableMachine;
+class StationaryMachine;
+class Laptop;
+class Tablet;
+class MonoBlock;
 
-void menu();
+
+void comp_menu();
+void pm_menu();
+void sm_menu();
+void mn_menu();
+void lap_menu();
+void tab_menu();
 
 int againProg();

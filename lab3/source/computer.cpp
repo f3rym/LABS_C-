@@ -14,6 +14,7 @@ Computer &Computer::operator=(const Computer &other)
 std::istream &operator>>(std::istream &is, Computer &s)
 {
     std::cout << "Введите модель: ";
+    std::cin.ignore();
     is.getline(s.name, MAX_STR);
     std::cout << "Введите процессор: ";
     is.getline(s.processor, MAX_STR);
@@ -25,9 +26,10 @@ std::istream &operator>>(std::istream &is, Computer &s)
 
 std::ostream &operator<<(std::ostream &os, Computer &s)
 {
-    os << "Модель: " << s.name << std::endl;
-    os << "Процессор: " << s.processor << std::endl;
-    os << "Оперативная память: " << s.ram << " GB" << std::endl;
+    os << std::setw(20) << std::setw(20) << s.name ;
+    os << std::setw(20) << std::setw(20) << s.processor;
+    os << std::setw(20) << std::setw(20) << s.ram ;
+
     return os;
 }
 
