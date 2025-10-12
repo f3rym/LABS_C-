@@ -2,7 +2,15 @@
 #include "../header/tablet.h"
 // #include "../header/portableMachine.h"
 
-
+Tablet &Tablet::operator=(const Tablet &other)
+{
+    if (this != &other)
+    {
+        PortableMachine::operator=(other);
+        strncpy_s(OS,  other.OS, MAX_STR);
+    }
+    return *this;
+}
 
 std::ostream &operator<<(std::ostream &os, Tablet &tablet)
 {
@@ -25,4 +33,10 @@ void Tablet::info()
 {
     PortableMachine::info();
     std::cout << "- Планшет";
+}
+
+const char *Tablet::getOS() const { return OS; }
+void Tablet::setOS(const char *OS)
+{
+    strcpy(this->OS, OS);
 }

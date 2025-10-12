@@ -1,6 +1,17 @@
 #include "../header.h"
 #include "../header/mono.h"
-// #include "../header/stationaryMachine.h"
+#include "../header/stationaryMachine.h"
+
+MonoBlock &MonoBlock::operator=(const MonoBlock &other)
+{
+    if (this != &other)
+    {
+        StationaryMachine::operator=(other);
+        touchScreen = other.touchScreen;
+        sizeDisplay = other.sizeDisplay;    
+    }
+    return *this;
+}
 
 std::ostream &operator<<(std::ostream &os, MonoBlock &mb)
 {
@@ -27,4 +38,15 @@ void MonoBlock::info()
 {
     StationaryMachine::info();
     std::cout << "- Моноблок";
+}
+
+int MonoBlock::getSizeDisplay() const {return sizeDisplay;}
+bool MonoBlock::getTouchScreen() const {return touchScreen;}
+void MonoBlock::setTouchScreen(bool touchScreen)
+{
+    this->touchScreen = touchScreen;
+}
+void MonoBlock::setSizeDisplay(int sizeDisplay)
+{
+    this->sizeDisplay = sizeDisplay;
 }

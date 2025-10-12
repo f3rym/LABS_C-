@@ -1,4 +1,11 @@
-#include "computer.h"
+#include "header.h"
+#include "header/computer.h"
+#include "header/laptop.h"
+#include "header/mono.h"
+#include "header/portableMachine.h"
+#include "header/stationaryMachine.h"
+
+
 
 
 int main()
@@ -7,7 +14,7 @@ int main()
     int again = 1;
     while (again)
     {
-        menu();
+           
         again = againProg();
     }
 }

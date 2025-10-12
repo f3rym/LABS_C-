@@ -19,10 +19,12 @@ public:
     {
         std::strcpy(this->OS, other.OS);
     };
+    Tablet &operator=(const Tablet &other);
 
     friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
     friend std::istream &operator>>(std::istream &is, Tablet &mono);
-    virtual int getPowerConsumption() override;
     virtual void info() override;
     virtual ~Tablet() = default;
+    const char *getOS() const;
+    void setOS(const char *OS);
 };

@@ -20,24 +20,16 @@ public:
         std::strcpy(this->processor, processor);
         this->ram = ram;
     };
-    Computer(const Computer &other)
-    {
-        std::strcpy(this->name, other.name);
-        std::strcpy(this->processor, other.processor);
-        this->ram = other.ram;
-    };
+    Computer &operator=(const Computer &other);
     friend std::ostream &operator<<(std::ostream &os, Computer &s);
     friend std::istream &operator>>(std::istream &is, Computer &s);
-    virtual int getPowerConsumption();
+    const char* getName() const;
+    const char* getProcessor() const;
+    int getRam() const;
+    void setName(char* name);
+    void setProcessor(char* processor);
+    void setRam(int ram);
     virtual void info();
 
     virtual ~Computer() = default;
 };
-
-
-
-
-
-
-void menu();
-int againProg();

@@ -1,6 +1,16 @@
 #include "../header.h"
 #include "../header/portableMachine.h"
 
+PortableMachine &PortableMachine::operator=(const PortableMachine &other)
+{
+    if (this != &other)
+    {
+        Computer::operator=(other);
+        batteryHealth = other.batteryHealth;
+        sizeDisplay = other.sizeDisplay;
+    }
+    return *this;
+}
 
 std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
 {
@@ -26,4 +36,15 @@ void PortableMachine::info()
 {
     Computer::info();
     std::cout << "- Портативная";
+}
+
+int PortableMachine::getBatteryHealth() const {return batteryHealth;}
+int PortableMachine::getSizeDisplay() const { return sizeDisplay;}
+void PortableMachine::setBatteryHealth(int batteryHealth) 
+{
+    this->batteryHealth = batteryHealth;
+}
+void PortableMachine::setSizeDisplay(int sizeDisplay)
+{
+    this->sizeDisplay = sizeDisplay;
 }

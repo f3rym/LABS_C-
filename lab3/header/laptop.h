@@ -19,9 +19,11 @@ public:
     {
         this->hasBacklitKeyboard = other.hasBacklitKeyboard;
     };
+    Laptop &operator=(const Laptop &other);
     friend std::ostream &operator<<(std::ostream &os, Laptop &lap);
     friend std::istream &operator>>(std::istream &is, Laptop &lap);
-    virtual int getPowerConsumption() override;
     virtual void info() override;
     virtual ~Laptop() = default;
+    bool getHasBacklitKeyboard() const;
+    void setHasBacklitKeyboard(bool hasBacklitKeyboard);
 };

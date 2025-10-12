@@ -23,10 +23,13 @@ public:
         this->batteryHealth = other.batteryHealth;
         this->sizeDisplay = other.sizeDisplay;
     };
+    PortableMachine &operator=(const PortableMachine &other);
     friend std::ostream &operator<<(std::ostream &os, PortableMachine &pm);
     friend std::istream &operator>>(std::istream &is, PortableMachine &pm);
-    virtual int getPowerConsumption() override;
     virtual void info() override;
-
     virtual ~PortableMachine() = default;
+    int getBatteryHealth() const;
+    int getSizeDisplay() const;
+    void setBatteryHealth(int batteryHealth);
+    void setSizeDisplay(int sizeDisplay);
 };

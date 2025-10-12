@@ -1,5 +1,15 @@
 #include "../header/stationaryMachine.h"
 
+StationaryMachine &StationaryMachine::operator=(const StationaryMachine &other)
+{
+    if (this != &other)
+    {
+        Computer::operator=(other);
+        PCISlots = other.PCISlots;
+    }
+    return *this;
+}
+
 std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 {
     Computer &comp = sm;
@@ -21,4 +31,10 @@ void StationaryMachine::info()
 {
     Computer::info();
     std::cout << "- Стационарная";
+}
+
+int StationaryMachine::getPCISlots() const {return PCISlots;};
+void StationaryMachine::setPCISlots(int PCISlots) 
+{
+    this->PCISlots = PCISlots;
 }

@@ -19,11 +19,12 @@ public:
     {
         this->PCISlots = other.PCISlots;
     };
-
+    StationaryMachine &operator=(const StationaryMachine &other);
     friend std::ostream &operator<<(std::ostream &os, StationaryMachine &sm);
     friend std::istream &operator>>(std::istream &is, StationaryMachine &sm);
-    virtual int getPowerConsumption() override;
     virtual void info() override;
 
     virtual ~StationaryMachine() = default;
+    int getPCISlots() const;
+    void setPCISlots(int PCISlots);
 };

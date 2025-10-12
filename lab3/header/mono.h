@@ -24,10 +24,13 @@ public:
         this->sizeDisplay = other.sizeDisplay;
         this->touchScreen = other.touchScreen;
     };
+    MonoBlock &operator=(const MonoBlock &other);
     friend std::ostream &operator<<(std::ostream &os, MonoBlock &mono);
     friend std::istream &operator>>(std::istream &is, MonoBlock &mono);
-    virtual int getPowerConsumption() override;
     virtual void info() override;
-
     virtual ~MonoBlock() = default;
+    int getSizeDisplay() const;
+    bool getTouchScreen() const;
+    void setTouchScreen(bool touchScreen);
+    void setSizeDisplay(int sizeDisplay);
 };
