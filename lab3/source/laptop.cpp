@@ -16,7 +16,7 @@ std::ostream &operator<<(std::ostream &os, Laptop &lap)
 {
     PortableMachine &pm = lap;
     os << pm;
-    os << std::setw(15) << (lap.hasBacklitKeyboard ? "Есть" : "Нет");
+    os << std::setw(20) << (lap.hasBacklitKeyboard ? "Есть" : "Нет");
     return os;
 }
 std::istream &operator>>(std::istream &is, Laptop &lap)

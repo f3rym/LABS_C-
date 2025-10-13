@@ -19,7 +19,9 @@ std::ostream &operator<<(std::ostream &os, MonoBlock &mb)
     os << sm;
     os << std::setw(8) << mb.sizeDisplay;
     if (mb.touchScreen == true)
-        os << std::setw(8) << "Имеется";
+        os << std::setw(20) << "Имеется";
+    else 
+        os << std::setw(20) << "Не имеется";
     return os;
 }
 

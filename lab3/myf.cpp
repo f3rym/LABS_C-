@@ -16,7 +16,8 @@ void comp_menu()
     {
         std::cout << "=========================================" << std::endl;
         comps[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить компьютер" << std::endl;
         std::cout << "2. Показать все компьютеры" << std::endl;
         std::cout << "3. Найти компьютер по модели" << std::endl;
@@ -24,7 +25,7 @@ void comp_menu()
         std::cout << "0. Назад" << std::endl;
         std::cout << "=========================================" << std::endl;
         std::cin >> choice;
-        
+
         switch (choice)
         {
         case 1:
@@ -48,10 +49,11 @@ void comp_menu()
                 return;
             }
             comps[0].info();
-            std::cout << std::endl << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "--------------------------------------------------------" << std::endl;
             std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Гб)"  << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)" << std::endl;
             std::cout << "--------------------------------------------------------" << std::endl;
 
             for (int i = 0; i < compCount; i++)
@@ -122,7 +124,8 @@ void pm_menu()
     {
         std::cout << "=========================================" << std::endl;
         portables[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить портативную машину" << std::endl;
         std::cout << "2. Показать все портативные машины" << std::endl;
         std::cout << "3. Удалить портативную машину" << std::endl;
@@ -154,12 +157,13 @@ void pm_menu()
                 break;
             }
             portables[0].info();
-            std::cout << std::endl << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "----------------------------------------------------------------------------------------------------" << std::endl;
             std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Gb)"
-                      << std::setw(20) << "Батарея(mAh)" << std::setw(20) << "Диагональ" << std::endl;
-            std::cout << "--------------------------------------------------------------------" << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
+                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display" << std::endl;
+            std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
 
             for (int i = 0; i < portableCount; i++)
             {
@@ -206,7 +210,8 @@ void sm_menu()
     {
         std::cout << "=========================================" << std::endl;
         stationarys[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить стационарную машину" << std::endl;
         std::cout << "2. Показать все стационарные машины" << std::endl;
         std::cout << "3. Найти по количеству PCI слотов" << std::endl;
@@ -239,12 +244,13 @@ void sm_menu()
                 break;
             }
             stationarys[0].info();
-            std::cout << std::endl << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "-----------------------------------------------------------------------------" << std::endl;
             std::cout << std::left;
-            std::cout << std::setw(8) << "Номер" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Gb)"
-                      << std::setw(20) << "PCI Слоты" << std::endl;
-            std::cout << "--------------------------------------------------------------" << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
+                      << std::setw(20) << "PCI Slots" << std::endl;
+            std::cout << "-----------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < stationaryCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
@@ -315,7 +321,8 @@ void mn_menu()
     {
         std::cout << "=========================================" << std::endl;
         monoblocks[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить моноблок" << std::endl;
         std::cout << "2. Показать все моноблоки" << std::endl;
         std::cout << "3. Найти по размеру дисплея" << std::endl;
@@ -348,16 +355,17 @@ void mn_menu()
                 break;
             }
             monoblocks[0].info();
-            std::cout <<  std::endl <<"----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "-------------------------------------------------------------------------------------------------------------------" << std::endl;
             std::cout << std::left;
-            std::cout << std::setw(8) << "Номер" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Gb)"
-                      << std::setw(20) << "PCI Слоты" << std::setw(20) << "Диагональ"
-                      << std::setw(20) << "Тачскрин" << std::endl;
-            std::cout << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
+                      << std::setw(20) << "PCI Slot" << std::setw(20) << "Size Display"
+                      << std::setw(20) << "Touchscreen" << std::endl;
+            std::cout << "-------------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < monoCount; i++)
             {
-                std::cout << std::setw(8) << i + 1 ;
+                std::cout << std::setw(8) << i + 1;
                 std::cout << monoblocks[i] << std::endl;
             }
             break;
@@ -425,7 +433,8 @@ void lap_menu()
     {
         std::cout << "=========================================" << std::endl;
         laptops[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить ноутбук" << std::endl;
         std::cout << "2. Показать все ноутбуки" << std::endl;
         std::cout << "3. Удалить ноутбук" << std::endl;
@@ -457,14 +466,15 @@ void lap_menu()
                 break;
             }
             laptops[0].info();
-            std::cout << std::endl << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "-----------------------------------------------------------------------------------------------------------------------" << std::endl;
 
             std::cout << std::left;
-            std::cout << std::setw(8) << "Номер" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Gb)"
-                      << std::setw(20) << "Батарея(mAh)" << std::setw(20) << "Диагональ"
-                      << std::setw(20) << "Подсветка" << std::endl;
-            std::cout << "---------------------------------------------------------------------------" << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
+                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display"
+                      << std::setw(20) << "Has Backlit" << std::endl;
+            std::cout << "-----------------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < laptopCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
@@ -510,7 +520,8 @@ void tab_menu()
     {
         std::cout << "=========================================" << std::endl;
         tablets[0].info();
-        std::cout << std::endl << "=========================================" << std::endl;
+        std::cout << std::endl
+                  << "=========================================" << std::endl;
         std::cout << "1. Добавить планшет" << std::endl;
         std::cout << "2. Показать все планшеты" << std::endl;
         std::cout << "3. Найти по операционной системе" << std::endl;
@@ -543,13 +554,14 @@ void tab_menu()
                 break;
             }
             tablets[0].info();
-            std::cout << std::endl << "----------------------------------------------------------------------------" << std::endl;
+            std::cout << std::endl
+                      << "----------------------------------------------------------------------------------------------------------------" << std::endl;
             std::cout << std::left;
-            std::cout << std::setw(8) << "Номер" << std::setw(20) << "Модель"
-                      << std::setw(20) << "Процессор" << std::setw(20) << "ОЗУ(Gb)"
-                      << std::setw(20) << "Батарея(mAh)" << std::setw(20) << "Диагональ"
-                      << std::setw(20) << "ОС" << std::endl;
-            std::cout << "---------------------------------------------------------------------------" << std::endl;
+            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
+                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display"
+                      << std::setw(20) << "OS" << std::endl;
+            std::cout << "----------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < tabletCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
