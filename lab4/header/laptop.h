@@ -1,0 +1,34 @@
+#ifndef LAPTOP_H
+#define LAPTOP_H
+
+#include "../header.h"
+#include "portableMachine.h"
+
+class Laptop : public PortableMachine
+{
+    bool hasBacklitKeyboard;
+
+public:
+    Laptop() : PortableMachine()
+    {
+        hasBacklitKeyboard = false;
+    };
+    Laptop(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay, bool hasBacklitKeyboard)
+        : PortableMachine(name, processor, ram, batteryHealth, sizeDisplay)
+    {
+        this->hasBacklitKeyboard = hasBacklitKeyboard;
+    };
+    Laptop(const Laptop &other) : PortableMachine(other)
+    {
+        this->hasBacklitKeyboard = other.hasBacklitKeyboard;
+    };
+    Laptop &operator=(const Laptop &other);
+    friend std::ostream &operator<<(std::ostream &os, Laptop &lap);
+    friend std::istream &operator>>(std::istream &is, Laptop &lap);
+    void info() override;
+    virtual ~Laptop() = default;
+    bool getHasBacklitKeyboard() const;
+    void setHasBacklitKeyboard(bool hasBacklitKeyboard);
+};
+
+#endif

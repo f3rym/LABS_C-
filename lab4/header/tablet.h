@@ -1,0 +1,36 @@
+#ifndef TABLET_H
+#define TABLET_H
+
+#include "../header.h"
+#include "portableMachine.h"
+
+class Tablet : public PortableMachine
+{
+    char OS[MAX_STR];
+
+public:
+    Tablet() : PortableMachine()
+    {
+        OS[MAX_STR];
+    };
+    Tablet(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay, char *OS)
+        : PortableMachine(name, processor, ram, batteryHealth, sizeDisplay)
+    {
+        strcpy_s(this->OS, OS);
+    };
+    Tablet(const Tablet &other) : PortableMachine()
+    {
+        strcpy_s(this->OS, other.OS);
+    };
+    Tablet &operator=(const Tablet &other);
+
+    friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
+    friend std::istream &operator>>(std::istream &is, Tablet &mono);
+    void info();
+    ;
+    virtual ~Tablet() = default;
+    const char *getOS() const;
+    void setOS(const char *OS);
+};
+
+#endif
