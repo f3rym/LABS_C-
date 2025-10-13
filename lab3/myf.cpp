@@ -1,5 +1,5 @@
 #include "header.h"
-#include "./header/computer.h"
+#include "./header/ComputingMachine.h"
 #include "./header/laptop.h"
 #include "./header/mono.h"
 #include "./header/portableMachine.h"
@@ -10,7 +10,7 @@ void comp_menu()
 {
     system("cls");
     int compCount = 0;
-    Computer comps[MAX_CMP];
+    ComputingMachine comps[MAX_CMP];
     int choice;
     do
     {

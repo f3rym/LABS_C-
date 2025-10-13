@@ -5,7 +5,7 @@ PortableMachine &PortableMachine::operator=(const PortableMachine &other)
 {
     if (this != &other)
     {
-        Computer::operator=(other);
+        ComputingMachine::operator=(other);
         batteryHealth = other.batteryHealth;
         sizeDisplay = other.sizeDisplay;
     }
@@ -14,16 +14,16 @@ PortableMachine &PortableMachine::operator=(const PortableMachine &other)
 
 std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
 {
-    Computer &com = pm;
+    ComputingMachine &com = pm;
     os << com;
     os << std::setw(20) << pm.batteryHealth;
-    os << std::setw(20) << pm.sizeDisplay ;
+    os << std::setw(20) << pm.sizeDisplay;
     return os;
 }
 
 std::istream &operator>>(std::istream &is, PortableMachine &pm)
 {
-    Computer &com = pm;
+    ComputingMachine &com = pm;
     is >> com;
     std::cout << "Введите ёмкость батареи: ";
     is >> pm.batteryHealth;
@@ -34,13 +34,13 @@ std::istream &operator>>(std::istream &is, PortableMachine &pm)
 
 void PortableMachine::info()
 {
-    Computer::info();
+    ComputingMachine::info();
     std::cout << "- Портативная";
 }
 
-int PortableMachine::getBatteryHealth() const {return batteryHealth;}
-int PortableMachine::getSizeDisplay() const { return sizeDisplay;}
-void PortableMachine::setBatteryHealth(int batteryHealth) 
+int PortableMachine::getBatteryHealth() const { return batteryHealth; }
+int PortableMachine::getSizeDisplay() const { return sizeDisplay; }
+void PortableMachine::setBatteryHealth(int batteryHealth)
 {
     this->batteryHealth = batteryHealth;
 }

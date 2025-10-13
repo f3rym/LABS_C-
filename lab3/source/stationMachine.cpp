@@ -4,7 +4,7 @@ StationaryMachine &StationaryMachine::operator=(const StationaryMachine &other)
 {
     if (this != &other)
     {
-        Computer::operator=(other);
+        ComputingMachine::operator=(other);
         PCISlots = other.PCISlots;
     }
     return *this;
@@ -12,7 +12,7 @@ StationaryMachine &StationaryMachine::operator=(const StationaryMachine &other)
 
 std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 {
-    Computer &comp = sm;
+    ComputingMachine &comp = sm;
     os << comp;
     os << std::setw(20) << sm.PCISlots;
     return os;
@@ -20,7 +20,7 @@ std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 
 std::istream &operator>>(std::istream &is, StationaryMachine &sm)
 {
-    Computer &comp = sm;
+    ComputingMachine &comp = sm;
     is >> comp;
     std::cout << "Введите количество PCI слотов: ";
     is >> sm.PCISlots;
@@ -29,12 +29,12 @@ std::istream &operator>>(std::istream &is, StationaryMachine &sm)
 
 void StationaryMachine::info()
 {
-    Computer::info();
+    ComputingMachine::info();
     std::cout << "- Стационарная";
 }
 
-int StationaryMachine::getPCISlots() const {return PCISlots;};
-void StationaryMachine::setPCISlots(int PCISlots) 
+int StationaryMachine::getPCISlots() const { return PCISlots; };
+void StationaryMachine::setPCISlots(int PCISlots)
 {
     this->PCISlots = PCISlots;
 }

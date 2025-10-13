@@ -1,6 +1,6 @@
 run:
 	g++ -o main main.cpp \
-	./source/computer.cpp \
+	./source/ComputingMachine.cpp \
 	./source/laptop.cpp \
 	./source/mono.cpp \
 	./source/portableMachine.cpp \

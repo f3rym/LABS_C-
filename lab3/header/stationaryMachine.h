@@ -2,9 +2,9 @@
 #define STATIONARYMACHINE_H
 
 #include "../header.h"
-#include "computer.h"
+#include "computingMachine.h"
 
-class StationaryMachine : public Computer
+class StationaryMachine : public ComputingMachine
 {
     int PCISlots;
 
@@ -14,11 +14,11 @@ public:
         PCISlots = 0;
     };
     StationaryMachine(char *name, char *processor, int ram, int PCISlots)
-        : Computer(name, processor, ram)
+        : ComputingMachine(name, processor, ram)
     {
         this->PCISlots = PCISlots;
     };
-    StationaryMachine(const StationaryMachine &other) : Computer(other)
+    StationaryMachine(const StationaryMachine &other) : ComputingMachine(other)
     {
         this->PCISlots = other.PCISlots;
     };

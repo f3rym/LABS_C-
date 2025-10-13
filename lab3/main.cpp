@@ -1,5 +1,5 @@
 #include "header.h"
-#include "header/computer.h"
+#include "header/ComputingMachine.h"
 #include "header/laptop.h"
 #include "header/mono.h"
 #include "header/portableMachine.h"

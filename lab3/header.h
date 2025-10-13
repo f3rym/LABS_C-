@@ -6,13 +6,12 @@
 #define MAX_STR 80
 #define MAX_CMP 20
 
-class Computer;
+class ComputingMachine;
 class PortableMachine;
 class StationaryMachine;
 class Laptop;
 class Tablet;
 class MonoBlock;
-
 
 void comp_menu();
 void pm_menu();
