@@ -11,22 +11,23 @@ class Tablet : public PortableMachine
 public:
     Tablet() : PortableMachine()
     {
-        char OS[MAX_STR];
+        OS[MAX_STR];
     };
     Tablet(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay, char *OS)
         : PortableMachine(name, processor, ram, batteryHealth, sizeDisplay)
     {
-        std::strcpy(this->OS, OS);
+        strcpy_s(this->OS, OS);
     };
     Tablet(const Tablet &other) : PortableMachine()
     {
-        std::strcpy(this->OS, other.OS);
+        strcpy_s(this->OS, other.OS);
     };
     Tablet &operator=(const Tablet &other);
 
     friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
     friend std::istream &operator>>(std::istream &is, Tablet &mono);
-    virtual void info() override;
+    void info();
+    ;
     virtual ~Tablet() = default;
     const char *getOS() const;
     void setOS(const char *OS);

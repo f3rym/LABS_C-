@@ -34,11 +34,11 @@ std::istream &operator>>(std::istream &is, Tablet &tablet)
 void Tablet::info()
 {
     PortableMachine::info();
-    std::cout << "- Планшет";
+    std::cout << std::setw(20) << "OS";
 }
 
 const char *Tablet::getOS() const { return OS; }
 void Tablet::setOS(const char *OS)
 {
-    strcpy(this->OS, OS);
+    strcpy_s(this->OS, OS);
 }

@@ -30,7 +30,7 @@ std::istream &operator>>(std::istream &is, StationaryMachine &sm)
 void StationaryMachine::info()
 {
     ComputingMachine::info();
-    std::cout << "- Стационарная";
+    std::cout << std::setw(20) << "PCI Slots";
 }
 
 int StationaryMachine::getPCISlots() const { return PCISlots; };

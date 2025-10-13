@@ -18,8 +18,8 @@ public:
     }
     ComputingMachine(char *name, char *processor, int ram)
     {
-        std::strcpy(this->name, name);
-        std::strcpy(this->processor, processor);
+        strcpy_s(this->name, name);
+        strcpy_s(this->processor, processor);
         this->ram = ram;
     };
     ComputingMachine &operator=(const ComputingMachine &other);

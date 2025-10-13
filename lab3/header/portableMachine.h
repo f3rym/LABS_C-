@@ -30,7 +30,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, PortableMachine &pm);
     friend std::istream &operator>>(std::istream &is, PortableMachine &pm);
     virtual void info() override;
-    virtual ~PortableMachine() = default;
+    ~PortableMachine() = default;
     int getBatteryHealth() const;
     int getSizeDisplay() const;
     void setBatteryHealth(int batteryHealth);

@@ -25,9 +25,9 @@ std::istream &operator>>(std::istream &is, PortableMachine &pm)
 {
     ComputingMachine &com = pm;
     is >> com;
-    std::cout << "Введите ёмкость батареи: ";
+    std::cout << "Введите ёмкость батареи(mAh): ";
     is >> pm.batteryHealth;
-    std::cout << "Введите размер дисплея: ";
+    std::cout << "Введите размер дисплея(дюйм): ";
     is >> pm.sizeDisplay;
     return is;
 }
@@ -35,7 +35,7 @@ std::istream &operator>>(std::istream &is, PortableMachine &pm)
 void PortableMachine::info()
 {
     ComputingMachine::info();
-    std::cout << "- Портативная";
+    std::cout << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display";
 }
 
 int PortableMachine::getBatteryHealth() const { return batteryHealth; }

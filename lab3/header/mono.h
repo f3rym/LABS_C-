@@ -29,7 +29,7 @@ public:
     MonoBlock &operator=(const MonoBlock &other);
     friend std::ostream &operator<<(std::ostream &os, MonoBlock &mono);
     friend std::istream &operator>>(std::istream &is, MonoBlock &mono);
-    virtual void info() override;
+    void info() override;
     virtual ~MonoBlock() = default;
     int getSizeDisplay() const;
     bool getTouchScreen() const;

@@ -1,111 +1,75 @@
 #include "header.h"
-#include "./header/ComputingMachine.h"
 #include "./header/laptop.h"
 #include "./header/mono.h"
-#include "./header/portableMachine.h"
-#include "./header/stationaryMachine.h"
 #include "./header/tablet.h"
 
-void comp_menu()
+void waitForAnyKey()
 {
+    std::cout << "\nНажмите любую клавишу для продолжения...";
+    _getch();
     system("cls");
-    int compCount = 0;
-    ComputingMachine comps[MAX_CMP];
+}
+
+void editMonoBlock(MonoBlock &mono)
+{
     int choice;
+    char buffer[MAX_STR];
+    int intValue;
+    bool boolValue;
+
     do
     {
-        std::cout << "=========================================" << std::endl;
-        comps[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
-        std::cout << "1. Добавить компьютер" << std::endl;
-        std::cout << "2. Показать все компьютеры" << std::endl;
-        std::cout << "3. Найти компьютер по модели" << std::endl;
-        std::cout << "4. Удалить компьютер" << std::endl;
+        std::cout << "\n=== Редактирование моноблока ===" << std::endl;
+        std::cout << "1. Изменить название (" << mono.getName() << ")" << std::endl;
+        std::cout << "2. Изменить процессор (" << mono.getProcessor() << ")" << std::endl;
+        std::cout << "3. Изменить RAM (" << mono.getRam() << " GB)" << std::endl;
+        std::cout << "4. Изменить PCI слоты (" << mono.getPCISlots() << ")" << std::endl;
+        std::cout << "5. Изменить размер дисплея (" << mono.getSizeDisplay() << "\")" << std::endl;
+        std::cout << "6. Изменить сенсорный экран (" << (mono.getTouchScreen() ? "Да" : "Нет") << ")" << std::endl;
         std::cout << "0. Назад" << std::endl;
-        std::cout << "=========================================" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
         std::cin >> choice;
 
         switch (choice)
         {
         case 1:
-        {
-            if (compCount < MAX_CMP)
-            {
-                std::cin >> comps[compCount];
-                compCount++;
-                std::cout << "Компьютер добавлен!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Достигнут лимит компьютеров!" << std::endl;
-            }
-            break;
-        }
-        case 2:
-            if (compCount == 0)
-            {
-                std::cout << "Нет компьютеров в системе!" << std::endl;
-                return;
-            }
-            comps[0].info();
-            std::cout << std::endl
-                      << "--------------------------------------------------------" << std::endl;
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)" << std::endl;
-            std::cout << "--------------------------------------------------------" << std::endl;
-
-            for (int i = 0; i < compCount; i++)
-            {
-                std::cout << std::setw(8) << i + 1;
-                std::cout << comps[i] << std::endl;
-            }
-            break;
-        case 3:
-        {
-            char searchName[MAX_STR];
-            std::cout << "Введите имя для поиска: ";
+            std::cout << "Введите новое название: ";
             std::cin.ignore();
-            std::cin.getline(searchName, MAX_STR);
-
-            bool found = false;
-            for (int i = 0; i < compCount; i++)
-            {
-                if (std::strcmp(comps[i].getName(), searchName) == 0)
-                {
-                    std::cout << "Найден компьютер:" << std::endl;
-                    comps[i].info();
-                    std::cout << comps[i] << std::endl;
-                    found = true;
-                }
-            }
-            if (!found)
-            {
-                std::cout << "Компьютер с именем '" << searchName << "' не найден!" << std::endl;
-            }
+            std::cin.getline(buffer, MAX_STR);
+            mono.setName(buffer);
+            std::cout << "Название изменено!" << std::endl;
             break;
-        }
+        case 2:
+            std::cout << "Введите новый процессор: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            mono.setProcessor(buffer);
+            std::cout << "Процессор изменен!" << std::endl;
+            break;
+        case 3:
+            std::cout << "Введите новый объем RAM (GB): ";
+            std::cin >> intValue;
+            mono.setRam(intValue);
+            std::cout << "RAM изменен!" << std::endl;
+            break;
         case 4:
-        {
-            int index;
-            std::cout << "Введите номер компьютера для удаления (1-" << compCount << "): ";
-            std::cin >> index;
-            if (index >= 1 && index <= compCount)
-            {
-                for (int i = index - 1; i < compCount - 1; i++)
-                {
-                    comps[i] = comps[i + 1];
-                }
-                compCount--;
-                std::cout << "Компьютер удален!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Неверный номер!" << std::endl;
-            }
+            std::cout << "Введите количество PCI слотов: ";
+            std::cin >> intValue;
+            mono.setPCISlots(intValue);
+            std::cout << "PCI слоты изменены!" << std::endl;
             break;
-        }
+        case 5:
+            std::cout << "Введите новый размер дисплея (дюймы): ";
+            std::cin >> intValue;
+            mono.setSizeDisplay(intValue);
+            std::cout << "Размер дисплея изменен!" << std::endl;
+            break;
+        case 6:
+            std::cout << "Сенсорный экран (1 - Да, 0 - Нет): ";
+            std::cin >> boolValue;
+            mono.setTouchScreen(boolValue);
+            std::cout << "Параметр сенсорного экрана изменен!" << std::endl;
+            break;
         case 0:
             break;
         default:
@@ -114,84 +78,66 @@ void comp_menu()
     } while (choice != 0);
 }
 
-void pm_menu()
+void editLaptop(Laptop &laptop)
 {
-    system("cls");
-    int portableCount = 0;
-    PortableMachine portables[MAX_CMP];
     int choice;
+    char buffer[MAX_STR];
+    int intValue;
+    bool boolValue;
+
     do
     {
-        std::cout << "=========================================" << std::endl;
-        portables[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
-        std::cout << "1. Добавить портативную машину" << std::endl;
-        std::cout << "2. Показать все портативные машины" << std::endl;
-        std::cout << "3. Удалить портативную машину" << std::endl;
+        std::cout << "\n=== Редактирование ноутбука ===" << std::endl;
+        std::cout << "1. Изменить название (" << laptop.getName() << ")" << std::endl;
+        std::cout << "2. Изменить процессор (" << laptop.getProcessor() << ")" << std::endl;
+        std::cout << "3. Изменить RAM (" << laptop.getRam() << " GB)" << std::endl;
+        std::cout << "4. Изменить емкость батареи (" << laptop.getBatteryHealth() << " mAh)" << std::endl;
+        std::cout << "5. Изменить размер дисплея (" << laptop.getSizeDisplay() << "\")" << std::endl;
+        std::cout << "6. Изменить подсветку клавиатуры (" << (laptop.getHasBacklitKeyboard() ? "Да" : "Нет") << ")" << std::endl;
         std::cout << "0. Назад" << std::endl;
-        std::cout << "=========================================" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
         std::cin >> choice;
 
         switch (choice)
         {
         case 1:
-        {
-            if (portableCount < MAX_CMP)
-            {
-                std::cin >> portables[portableCount];
-                portableCount++;
-                std::cout << "Портативная машина добавлена!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Достигнут лимит портативных машин!" << std::endl;
-            }
+            std::cout << "Введите новое название: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            laptop.setName(buffer);
+            std::cout << "Название изменено!" << std::endl;
             break;
-        }
         case 2:
-        {
-            if (portableCount == 0)
-            {
-                std::cout << "Нет портативных машин в системе!" << std::endl;
-                break;
-            }
-            portables[0].info();
-            std::cout << std::endl
-                      << "----------------------------------------------------------------------------------------------------" << std::endl;
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
-                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display" << std::endl;
-            std::cout << "----------------------------------------------------------------------------------------------------" << std::endl;
-
-            for (int i = 0; i < portableCount; i++)
-            {
-                std::cout << std::setw(8) << i + 1;
-                std::cout << portables[i] << std::endl;
-            }
+            std::cout << "Введите новый процессор: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            laptop.setProcessor(buffer);
+            std::cout << "Процессор изменен!" << std::endl;
             break;
-        }
         case 3:
-        {
-            int index;
-            std::cout << "Введите номер портативной машины для удаления (1-" << portableCount << "): ";
-            std::cin >> index;
-            if (index >= 1 && index <= portableCount)
-            {
-                for (int i = index - 1; i < portableCount - 1; i++)
-                {
-                    portables[i] = portables[i + 1];
-                }
-                portableCount--;
-                std::cout << "Портативная машина удалена!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Неверный номер!" << std::endl;
-            }
+            std::cout << "Введите новый объем RAM (GB): ";
+            std::cin >> intValue;
+            laptop.setRam(intValue);
+            std::cout << "RAM изменен!" << std::endl;
             break;
-        }
+        case 4:
+            std::cout << "Введите новую емкость батареи (mAh): ";
+            std::cin >> intValue;
+            laptop.setBatteryHealth(intValue);
+            std::cout << "Емкость батареи изменена!" << std::endl;
+            break;
+        case 5:
+            std::cout << "Введите новый размер дисплея (дюймы): ";
+            std::cin >> intValue;
+            laptop.setSizeDisplay(intValue);
+            std::cout << "Размер дисплея изменен!" << std::endl;
+            break;
+        case 6:
+            std::cout << "Подсветка клавиатуры (1 - Да, 0 - Нет): ";
+            std::cin >> boolValue;
+            laptop.setHasBacklitKeyboard(boolValue);
+            std::cout << "Параметр подсветки изменен!" << std::endl;
+            break;
         case 0:
             break;
         default:
@@ -200,109 +146,66 @@ void pm_menu()
     } while (choice != 0);
 }
 
-void sm_menu()
+void editTablet(Tablet &tablet)
 {
-    system("cls");
-    int stationaryCount = 0;
-    StationaryMachine stationarys[MAX_CMP];
     int choice;
+    char buffer[MAX_STR];
+    int intValue;
+
     do
     {
-        std::cout << "=========================================" << std::endl;
-        stationarys[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
-        std::cout << "1. Добавить стационарную машину" << std::endl;
-        std::cout << "2. Показать все стационарные машины" << std::endl;
-        std::cout << "3. Найти по количеству PCI слотов" << std::endl;
-        std::cout << "4. Удалить стационарную машину" << std::endl;
+        std::cout << "\n=== Редактирование планшета ===" << std::endl;
+        std::cout << "1. Изменить название (" << tablet.getName() << ")" << std::endl;
+        std::cout << "2. Изменить процессор (" << tablet.getProcessor() << ")" << std::endl;
+        std::cout << "3. Изменить RAM (" << tablet.getRam() << " GB)" << std::endl;
+        std::cout << "4. Изменить емкость батареи (" << tablet.getBatteryHealth() << " mAh)" << std::endl;
+        std::cout << "5. Изменить размер дисплея (" << tablet.getSizeDisplay() << "\")" << std::endl;
+        std::cout << "6. Изменить операционную систему (" << tablet.getOS() << ")" << std::endl;
         std::cout << "0. Назад" << std::endl;
-        std::cout << "=========================================" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
         std::cin >> choice;
 
         switch (choice)
         {
         case 1:
-        {
-            if (stationaryCount < MAX_CMP)
-            {
-                std::cin >> stationarys[stationaryCount];
-                stationaryCount++;
-                std::cout << "Стационарная машина добавлена!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Достигнут лимит стационарных машин!" << std::endl;
-            }
+            std::cout << "Введите новое название: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            tablet.setName(buffer);
+            std::cout << "Название изменено!" << std::endl;
             break;
-        }
         case 2:
-        {
-            if (stationaryCount == 0)
-            {
-                std::cout << "Нет стационарных машин в системе!" << std::endl;
-                break;
-            }
-            stationarys[0].info();
-            std::cout << std::endl
-                      << "-----------------------------------------------------------------------------" << std::endl;
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
-                      << std::setw(20) << "PCI Slots" << std::endl;
-            std::cout << "-----------------------------------------------------------------------------" << std::endl;
-            for (int i = 0; i < stationaryCount; i++)
-            {
-                std::cout << std::setw(8) << i + 1;
-                std::cout << stationarys[i] << std::endl;
-            }
+            std::cout << "Введите новый процессор: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            tablet.setProcessor(buffer);
+            std::cout << "Процессор изменен!" << std::endl;
             break;
-        }
         case 3:
-        {
-            int minSlots;
-            std::cout << "Введите минимальное количество PCI слотов: ";
-            std::cin >> minSlots;
-            bool found = false;
-            for (int i = 0; i < stationaryCount; i++)
-            {
-                if (stationarys[i].getPCISlots() >= minSlots)
-                {
-                    if (!found)
-                    {
-                        std::cout << "Стационарные машины с PCI слотами >= " << minSlots << ":" << std::endl;
-                        found = true;
-                    }
-                    stationarys[i].info();
-                    std::cout << stationarys[i] << std::endl;
-                }
-            }
-            if (!found)
-            {
-                std::cout << "Не найдено стационарных машин с PCI слотами >= " << minSlots << std::endl;
-            }
+            std::cout << "Введите новый объем RAM (GB): ";
+            std::cin >> intValue;
+            tablet.setRam(intValue);
+            std::cout << "RAM изменен!" << std::endl;
             break;
-        }
         case 4:
-        {
-            int index;
-            std::cout << "Введите номер стационарной машины для удаления (1-" << stationaryCount << "): ";
-            std::cin >> index;
-            if (index >= 1 && index <= stationaryCount)
-            {
-                for (int i = index - 1; i < stationaryCount - 1; i++)
-                {
-                    stationarys[i] = stationarys[i + 1];
-                }
-                stationaryCount--;
-                std::cout << "Стационарная машина удалена!" << std::endl;
-            }
-            else
-            {
-                std::cout << "Неверный номер!" << std::endl;
-            }
+            std::cout << "Введите новую емкость батареи (mAh): ";
+            std::cin >> intValue;
+            tablet.setBatteryHealth(intValue);
+            std::cout << "Емкость батареи изменена!" << std::endl;
             break;
-        }
+        case 5:
+            std::cout << "Введите новый размер дисплея (дюймы): ";
+            std::cin >> intValue;
+            tablet.setSizeDisplay(intValue);
+            std::cout << "Размер дисплея изменен!" << std::endl;
+            break;
+        case 6:
+            std::cout << "Введите новую операционную систему: ";
+            std::cin.ignore();
+            std::cin.getline(buffer, MAX_STR);
+            tablet.setOS(buffer);
+            std::cout << "Операционная система изменена!" << std::endl;
+            break;
         case 0:
             break;
         default:
@@ -319,13 +222,11 @@ void mn_menu()
     int choice;
     do
     {
+        std::cout << "Работа с моноблоками" << std::endl;
         std::cout << "=========================================" << std::endl;
-        monoblocks[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
         std::cout << "1. Добавить моноблок" << std::endl;
         std::cout << "2. Показать все моноблоки" << std::endl;
-        std::cout << "3. Найти по размеру дисплея" << std::endl;
+        std::cout << "3. Редактирование параметров" << std::endl;
         std::cout << "4. Удалить моноблок" << std::endl;
         std::cout << "0. Назад" << std::endl;
         std::cout << "=========================================" << std::endl;
@@ -345,6 +246,7 @@ void mn_menu()
             {
                 std::cout << "Достигнут лимит моноблоков!" << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 2:
@@ -352,47 +254,43 @@ void mn_menu()
             if (monoCount == 0)
             {
                 std::cout << "Нет моноблоков в системе!" << std::endl;
+                waitForAnyKey();
                 break;
             }
             monoblocks[0].info();
             std::cout << std::endl
                       << "-------------------------------------------------------------------------------------------------------------------" << std::endl;
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
-                      << std::setw(20) << "PCI Slot" << std::setw(20) << "Size Display"
-                      << std::setw(20) << "Touchscreen" << std::endl;
-            std::cout << "-------------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < monoCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
                 std::cout << monoblocks[i] << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 3:
         {
-            int minSize;
-            std::cout << "Введите минимальный размер дисплея: ";
-            std::cin >> minSize;
-            bool found = false;
-            for (int i = 0; i < monoCount; i++)
+            if (monoCount == 0)
             {
-                if (monoblocks[i].getSizeDisplay() >= minSize)
-                {
-                    if (!found)
-                    {
-                        std::cout << "Моноблоки с размером дисплея >= " << minSize << " дюймов:" << std::endl;
-                        found = true;
-                    }
-                    monoblocks[i].info();
-                    std::cout << monoblocks[i] << std::endl;
-                }
+                std::cout << "Нет моноблоков для редактирования!" << std::endl;
+                waitForAnyKey();
+                break;
             }
-            if (!found)
+
+            int index;
+            std::cout << "Введите номер моноблока для редактирования (1-" << monoCount << "): ";
+            std::cin >> index;
+
+            if (index >= 1 && index <= monoCount)
             {
-                std::cout << "Не найдено моноблоков с размером дисплея >= " << minSize << " дюймов" << std::endl;
+                editMonoBlock(monoblocks[index - 1]);
+                std::cout << "Моноблок отредактирован!" << std::endl;
             }
+            else
+            {
+                std::cout << "Неверный номер!" << std::endl;
+            }
+            waitForAnyKey();
             break;
         }
         case 4:
@@ -413,12 +311,14 @@ void mn_menu()
             {
                 std::cout << "Неверный номер!" << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 0:
             break;
         default:
             std::cout << "Неверный выбор!" << std::endl;
+            waitForAnyKey();
         }
     } while (choice != 0);
 }
@@ -431,13 +331,12 @@ void lap_menu()
     int choice;
     do
     {
+        std::cout << "Работа с ноутбуками" << std::endl;
         std::cout << "=========================================" << std::endl;
-        laptops[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
         std::cout << "1. Добавить ноутбук" << std::endl;
         std::cout << "2. Показать все ноутбуки" << std::endl;
         std::cout << "3. Удалить ноутбук" << std::endl;
+        std::cout << "4. Редактирование параметров" << std::endl;
         std::cout << "0. Назад" << std::endl;
         std::cout << "=========================================" << std::endl;
         std::cin >> choice;
@@ -456,6 +355,7 @@ void lap_menu()
             {
                 std::cout << "Достигнут лимит ноутбуков!" << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 2:
@@ -463,23 +363,18 @@ void lap_menu()
             if (laptopCount == 0)
             {
                 std::cout << "Нет ноутбуков в системе!" << std::endl;
+                waitForAnyKey();
                 break;
             }
             laptops[0].info();
-            std::cout << std::endl
-                      << "-----------------------------------------------------------------------------------------------------------------------" << std::endl;
-
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
-                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display"
-                      << std::setw(20) << "Has Backlit" << std::endl;
+            std::cout << std::endl;
             std::cout << "-----------------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < laptopCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
                 std::cout << laptops[i] << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 3:
@@ -500,12 +395,39 @@ void lap_menu()
             {
                 std::cout << "Неверный номер!" << std::endl;
             }
+            waitForAnyKey();
+            break;
+        }
+        case 4:
+        {
+            if (laptopCount == 0)
+            {
+                std::cout << "Нет ноутбуков для редактирования!" << std::endl;
+                waitForAnyKey();
+                break;
+            }
+
+            int index;
+            std::cout << "Введите номер ноутбука для редактирования (1-" << laptopCount << "): ";
+            std::cin >> index;
+
+            if (index >= 1 && index <= laptopCount)
+            {
+                editLaptop(laptops[index - 1]);
+                std::cout << "Ноутбук отредактирован!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Неверный номер!" << std::endl;
+            }
+            waitForAnyKey();
             break;
         }
         case 0:
             break;
         default:
             std::cout << "Неверный выбор!" << std::endl;
+            waitForAnyKey();
         }
     } while (choice != 0);
 }
@@ -518,13 +440,11 @@ void tab_menu()
     int choice;
     do
     {
+        std::cout << "Работа с планшетами" << std::endl;
         std::cout << "=========================================" << std::endl;
-        tablets[0].info();
-        std::cout << std::endl
-                  << "=========================================" << std::endl;
         std::cout << "1. Добавить планшет" << std::endl;
         std::cout << "2. Показать все планшеты" << std::endl;
-        std::cout << "3. Найти по операционной системе" << std::endl;
+        std::cout << "3. Редактирование параметров" << std::endl;
         std::cout << "4. Удалить планшет" << std::endl;
         std::cout << "0. Назад" << std::endl;
         std::cout << "=========================================" << std::endl;
@@ -544,6 +464,7 @@ void tab_menu()
             {
                 std::cout << "Достигнут лимит планшетов!" << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 2:
@@ -551,48 +472,43 @@ void tab_menu()
             if (tabletCount == 0)
             {
                 std::cout << "Нет планшетов в системе!" << std::endl;
+                waitForAnyKey();
                 break;
             }
             tablets[0].info();
-            std::cout << std::endl
-                      << "----------------------------------------------------------------------------------------------------------------" << std::endl;
-            std::cout << std::left;
-            std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
-                      << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)"
-                      << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display"
-                      << std::setw(20) << "OS" << std::endl;
+            std::cout << std::endl;
             std::cout << "----------------------------------------------------------------------------------------------------------------" << std::endl;
             for (int i = 0; i < tabletCount; i++)
             {
                 std::cout << std::setw(8) << i + 1;
                 std::cout << tablets[i] << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 3:
         {
-            char searchOS[MAX_STR];
-            std::cout << "Введите ОС для поиска: ";
-            std::cin.ignore();
-            std::cin.getline(searchOS, MAX_STR);
-            bool found = false;
-            for (int i = 0; i < tabletCount; i++)
+            if (tabletCount == 0)
             {
-                if (std::strcmp(tablets[i].getOS(), searchOS) == 0)
-                {
-                    if (!found)
-                    {
-                        std::cout << "Планшеты с ОС '" << searchOS << "':" << std::endl;
-                        found = true;
-                    }
-                    tablets[i].info();
-                    std::cout << tablets[i] << std::endl;
-                }
+                std::cout << "Нет планшетов для редактирования!" << std::endl;
+                waitForAnyKey();
+                break;
             }
-            if (!found)
+
+            int index;
+            std::cout << "Введите номер планшета для редактирования (1-" << tabletCount << "): ";
+            std::cin >> index;
+
+            if (index >= 1 && index <= tabletCount)
             {
-                std::cout << "Не найдено планшетов с ОС '" << searchOS << "'" << std::endl;
+                editTablet(tablets[index - 1]);
+                std::cout << "Планшет отредактирован!" << std::endl;
             }
+            else
+            {
+                std::cout << "Неверный номер!" << std::endl;
+            }
+            waitForAnyKey();
             break;
         }
         case 4:
@@ -613,12 +529,14 @@ void tab_menu()
             {
                 std::cout << "Неверный номер!" << std::endl;
             }
+            waitForAnyKey();
             break;
         }
         case 0:
             break;
         default:
             std::cout << "Неверный выбор!" << std::endl;
+            waitForAnyKey();
         }
     } while (choice != 0);
 }

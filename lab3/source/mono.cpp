@@ -17,11 +17,11 @@ std::ostream &operator<<(std::ostream &os, MonoBlock &mb)
 {
     StationaryMachine& sm = mb;
     os << sm;
-    os << std::setw(8) << mb.sizeDisplay;
+    os << std::setw(20) << mb.sizeDisplay;
     if (mb.touchScreen == true)
-        os << std::setw(20) << "Имеется";
+        os << std::setw(20) << "+";
     else 
-        os << std::setw(20) << "Не имеется";
+        os << std::setw(20) << "-";
     return os;
 }
 
@@ -29,7 +29,7 @@ std::istream &operator>>(std::istream &is, MonoBlock &mb)
 {
     StationaryMachine &sm = mb;
     is >> sm;
-    std::cout << "Введите размер дисплея: ";
+    std::cout << "Введите размер дисплея(дюйм): ";
     is >> mb.sizeDisplay;
     std::cout << "Имеется Сенсорный экран? (1 - ДА, 0 - НЕТ): ";
     is >> mb.touchScreen;
@@ -39,7 +39,7 @@ std::istream &operator>>(std::istream &is, MonoBlock &mb)
 void MonoBlock::info()
 {
     StationaryMachine::info();
-    std::cout << "- Моноблок";
+    std::cout << std::setw(20) << "Size Display" << std::setw(20) << "Touchscreen";
 }
 
 int MonoBlock::getSizeDisplay() const {return sizeDisplay;}

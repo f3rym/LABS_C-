@@ -14,11 +14,11 @@ ComputingMachine &ComputingMachine::operator=(const ComputingMachine &other)
 std::istream &operator>>(std::istream &is, ComputingMachine &s)
 {
     std::cout << "Введите модель: ";
-    std::cin.ignore();
+    rewind(stdin);
     is.getline(s.name, MAX_STR);
     std::cout << "Введите процессор: ";
     is.getline(s.processor, MAX_STR);
-    std::cout << "Введите кол-во ОЗУ: ";
+    std::cout << "Введите кол-во ОЗУ(Gb): ";
     is >> s.ram;
 
     return is;
@@ -35,7 +35,9 @@ std::ostream &operator<<(std::ostream &os, ComputingMachine &s)
 
 void ComputingMachine::info()
 {
-    std::cout << "Тип: Вычислительная машина";
+    std::cout << std::left;
+    std::cout << std::setw(8) << "N" << std::setw(20) << "Model"
+              << std::setw(20) << "Processor" << std::setw(20) << "RAM(Gb)";
 }
 
 const char *ComputingMachine::getName() const { return name; }
@@ -44,11 +46,11 @@ int ComputingMachine::getRam() const { return ram; }
 
 void ComputingMachine::setName(char *name)
 {
-    std::strcpy(this->name, name);
+    strcpy_s(this->name, name);
 }
 void ComputingMachine::setProcessor(char *processor)
 {
-    std::strcpy(this->processor, processor);
+    strcpy_s(this->processor, processor);
 }
 void ComputingMachine::setRam(int ram)
 {

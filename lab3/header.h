@@ -2,6 +2,8 @@
 #include <iostream>
 #include <iomanip>
 #include <cstring>
+#include <string>
+#include <conio.h>
 
 #define MAX_STR 80
 #define MAX_CMP 20
@@ -13,9 +15,7 @@ class Laptop;
 class Tablet;
 class MonoBlock;
 
-void comp_menu();
-void pm_menu();
-void sm_menu();
+void waitForAnyKey();
 void mn_menu();
 void lap_menu();
 void tab_menu();
