@@ -1,6 +1,6 @@
 #include "../header.h"
 #include "../header/tablet.h"
-// #include "../header/portableMachine.h"
+#include "../header/portableMachine.h"
 
 Tablet &Tablet::operator=(const Tablet &other)
 {
@@ -17,7 +17,7 @@ std::ostream &operator<<(std::ostream &os, Tablet &tablet)
     PortableMachine &pm = tablet;
     os << pm;
     
-    os << std::setw(8) << tablet.OS;
+    os << std::setw(20) << tablet.OS;
     return os;
 }
 
@@ -26,7 +26,7 @@ std::istream &operator>>(std::istream &is, Tablet &tablet)
     PortableMachine &pm = tablet;
     is >> pm;
     std::cout << "Введите операционную систему: ";
-    std::cin.ignore();
+    rewind(stdin);
     is.getline(tablet.OS, MAX_STR);
     return is;
 }

@@ -1,3 +1,5 @@
+#ifndef HEADER_H
+#define HEADER_H
 
 #include <iostream>
 #include <iomanip>
@@ -14,6 +16,10 @@ class StationaryMachine;
 class Laptop;
 class Tablet;
 class MonoBlock;
+template <typename T>
+class LinkedList;
+template <typename T>
+class Node;
 
 void waitForAnyKey();
 void mn_menu();
@@ -21,3 +27,4 @@ void lap_menu();
 void tab_menu();
 
 int againProg();
+#endif

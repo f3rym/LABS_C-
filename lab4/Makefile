@@ -7,3 +7,4 @@ run:
 	./source/stationMachine.cpp \
 	./source/tablet.cpp \
 	./myf.cpp
+

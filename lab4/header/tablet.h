@@ -18,7 +18,7 @@ public:
     {
         strcpy_s(this->OS, OS);
     };
-    Tablet(const Tablet &other) : PortableMachine()
+    Tablet(const Tablet &other) : PortableMachine(other)
     {
         strcpy_s(this->OS, other.OS);
     };
@@ -27,7 +27,6 @@ public:
     friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
     friend std::istream &operator>>(std::istream &is, Tablet &mono);
     void info();
-    ;
     virtual ~Tablet() = default;
     const char *getOS() const;
     void setOS(const char *OS);

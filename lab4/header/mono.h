@@ -3,6 +3,7 @@
 
 #include "../header.h"
 #include "../header/stationaryMachine.h"
+#include "listNode.h"
 
 class MonoBlock : public StationaryMachine
 {

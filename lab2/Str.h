@@ -1,6 +1,7 @@
 #include <iostream>
 #include <locale>
 #include <cstring>
+#include <string>
 #define MAX_STR 150
 
 class String 

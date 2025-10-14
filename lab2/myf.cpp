@@ -36,7 +36,7 @@ std::ostream &operator<<(std::ostream &os, String &s)
 }
 std::istream &operator>>(std::istream &is, String &s)
 {
-    
+
     char temp[MAX_STR];
     is >> temp;
     delete[] s.str;
@@ -139,7 +139,7 @@ void menu()
     std::cout << "Ввод третьей строки: ";
     std::cin >> s3;
     bool result = (s3 += s1 + s2) == s3 && s1 != s2 && s3 > s2 && s1 <= s3 && s2[1] == 'a' && (s1(1, 3) + s2) == s3;
-    if(result)
+    if (result)
         std::cout << "Верно" << std::endl;
     else
         std::cout << "Неверно" << std::endl;

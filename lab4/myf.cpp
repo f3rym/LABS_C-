@@ -2,6 +2,7 @@
 #include "./header/laptop.h"
 #include "./header/mono.h"
 #include "./header/tablet.h"
+#include "./header/listNode.h"
 
 void waitForAnyKey()
 {
@@ -217,8 +218,7 @@ void editTablet(Tablet &tablet)
 void mn_menu()
 {
     system("cls");
-    int monoCount = 0;
-    MonoBlock monoblocks[MAX_CMP];
+    LinkedList<MonoBlock> monoblocks;
     int choice;
     do
     {
@@ -236,10 +236,11 @@ void mn_menu()
         {
         case 1:
         {
-            if (monoCount < MAX_CMP)
+            if (monoblocks.getSize() < MAX_CMP)
             {
-                std::cin >> monoblocks[monoCount];
-                monoCount++;
+                MonoBlock mn;
+                std::cin >> mn;
+                monoblocks.addToEnd(mn);
                 std::cout << "Моноблок добавлен!" << std::endl;
             }
             else
@@ -251,26 +252,28 @@ void mn_menu()
         }
         case 2:
         {
-            if (monoCount == 0)
+            if (monoblocks.getSize() == 0)
             {
                 std::cout << "Нет моноблоков в системе!" << std::endl;
                 waitForAnyKey();
                 break;
             }
-            monoblocks[0].info();
+            monoblocks.getHead()->data.info();
             std::cout << std::endl
                       << "-------------------------------------------------------------------------------------------------------------------" << std::endl;
-            for (int i = 0; i < monoCount; i++)
+            Node<MonoBlock> *curr = monoblocks.getHead();
+            for (int i = 0; i < monoblocks.getSize(); i++)
             {
-                std::cout << std::setw(8) << i + 1;
-                std::cout << monoblocks[i] << std::endl;
+                std::cout<< std::setw(8) << i + 1;
+                std::cout << curr->data << std::endl;
+                curr = curr->next;
             }
             waitForAnyKey();
             break;
         }
         case 3:
         {
-            if (monoCount == 0)
+            if (monoblocks.getSize() == 0)
             {
                 std::cout << "Нет моноблоков для редактирования!" << std::endl;
                 waitForAnyKey();
@@ -278,10 +281,10 @@ void mn_menu()
             }
 
             int index;
-            std::cout << "Введите номер моноблока для редактирования (1-" << monoCount << "): ";
+            std::cout << "Введите номер моноблока для редактирования (1-" << monoblocks.getSize() << "): ";
             std::cin >> index;
 
-            if (index >= 1 && index <= monoCount)
+            if (index >= 1 && index <= monoblocks.getSize())
             {
                 editMonoBlock(monoblocks[index - 1]);
                 std::cout << "Моноблок отредактирован!" << std::endl;
@@ -296,15 +299,11 @@ void mn_menu()
         case 4:
         {
             int index;
-            std::cout << "Введите номер моноблока для удаления (1-" << monoCount << "): ";
+            std::cout << "Введите номер моноблока для удаления (1-" << monoblocks.getSize() << "): ";
             std::cin >> index;
-            if (index >= 1 && index <= monoCount)
+            if (index >= 1 && index <= monoblocks.getSize())
             {
-                for (int i = index - 1; i < monoCount - 1; i++)
-                {
-                    monoblocks[i] = monoblocks[i + 1];
-                }
-                monoCount--;
+                monoblocks.removeIndex(index - 1);
                 std::cout << "Моноблок удален!" << std::endl;
             }
             else
@@ -326,8 +325,7 @@ void mn_menu()
 void lap_menu()
 {
     system("cls");
-    int laptopCount = 0;
-    Laptop laptops[MAX_CMP];
+    LinkedList<Laptop> lap;
     int choice;
     do
     {
@@ -345,10 +343,11 @@ void lap_menu()
         {
         case 1:
         {
-            if (laptopCount < MAX_CMP)
+            if (lap.getSize() < MAX_CMP)
             {
-                std::cin >> laptops[laptopCount];
-                laptopCount++;
+                Laptop lp;
+                std::cin >> lp;
+                lap.addToEnd(lp);
                 std::cout << "Ноутбук добавлен!" << std::endl;
             }
             else
@@ -360,19 +359,21 @@ void lap_menu()
         }
         case 2:
         {
-            if (laptopCount == 0)
+            if (lap.getSize() == 0)
             {
                 std::cout << "Нет ноутбуков в системе!" << std::endl;
                 waitForAnyKey();
                 break;
             }
-            laptops[0].info();
+            lap.getHead()->data.info();
             std::cout << std::endl;
             std::cout << "-----------------------------------------------------------------------------------------------------------------------" << std::endl;
-            for (int i = 0; i < laptopCount; i++)
+            Node<Laptop>* cur = lap.getHead(); 
+            for (int i = 0; i < lap.getSize(); i++)
             {
                 std::cout << std::setw(8) << i + 1;
-                std::cout << laptops[i] << std::endl;
+                std::cout << cur->data << std::endl;
+                cur = cur->next;
             }
             waitForAnyKey();
             break;
@@ -380,15 +381,11 @@ void lap_menu()
         case 3:
         {
             int index;
-            std::cout << "Введите номер ноутбука для удаления (1-" << laptopCount << "): ";
+            std::cout << "Введите номер ноутбука для удаления (1-" << lap.getSize() << "): ";
             std::cin >> index;
-            if (index >= 1 && index <= laptopCount)
+            if (index >= 1 && index <= lap.getSize())
             {
-                for (int i = index - 1; i < laptopCount - 1; i++)
-                {
-                    laptops[i] = laptops[i + 1];
-                }
-                laptopCount--;
+                lap.removeIndex(index - 1);
                 std::cout << "Ноутбук удален!" << std::endl;
             }
             else
@@ -400,7 +397,7 @@ void lap_menu()
         }
         case 4:
         {
-            if (laptopCount == 0)
+            if (lap.getSize() == 0)
             {
                 std::cout << "Нет ноутбуков для редактирования!" << std::endl;
                 waitForAnyKey();
@@ -408,12 +405,12 @@ void lap_menu()
             }
 
             int index;
-            std::cout << "Введите номер ноутбука для редактирования (1-" << laptopCount << "): ";
+            std::cout << "Введите номер ноутбука для редактирования (1-" << lap.getSize() << "): ";
             std::cin >> index;
 
-            if (index >= 1 && index <= laptopCount)
+            if (index >= 1 && index <= lap.getSize())
             {
-                editLaptop(laptops[index - 1]);
+                editLaptop(lap[index - 1]);
                 std::cout << "Ноутбук отредактирован!" << std::endl;
             }
             else
@@ -435,8 +432,7 @@ void lap_menu()
 void tab_menu()
 {
     system("cls");
-    int tabletCount = 0;
-    Tablet tablets[MAX_CMP];
+    LinkedList<Tablet> tab;    
     int choice;
     do
     {
@@ -454,10 +450,11 @@ void tab_menu()
         {
         case 1:
         {
-            if (tabletCount < MAX_CMP)
+            if (tab.getSize() < MAX_CMP)
             {
-                std::cin >> tablets[tabletCount];
-                tabletCount++;
+                Tablet tablet;
+                std::cin >> tablet;
+                tab.addToEnd(tablet);
                 std::cout << "Планшет добавлен!" << std::endl;
             }
             else
@@ -469,26 +466,29 @@ void tab_menu()
         }
         case 2:
         {
-            if (tabletCount == 0)
+            if (tab.getSize() == 0)
             {
                 std::cout << "Нет планшетов в системе!" << std::endl;
                 waitForAnyKey();
                 break;
             }
-            tablets[0].info();
+            tab.getHead()->data.info();
             std::cout << std::endl;
             std::cout << "----------------------------------------------------------------------------------------------------------------" << std::endl;
-            for (int i = 0; i < tabletCount; i++)
+            Node<Tablet>* curr  = tab.getHead();
+            for (int i = 0; i < tab.getSize(); i++)
             {
                 std::cout << std::setw(8) << i + 1;
-                std::cout << tablets[i] << std::endl;
+                std::cout << curr->data << std::endl;
+                curr = curr->next;
             }
+
             waitForAnyKey();
             break;
         }
         case 3:
         {
-            if (tabletCount == 0)
+            if (tab.getSize() == 0)
             {
                 std::cout << "Нет планшетов для редактирования!" << std::endl;
                 waitForAnyKey();
@@ -496,12 +496,12 @@ void tab_menu()
             }
 
             int index;
-            std::cout << "Введите номер планшета для редактирования (1-" << tabletCount << "): ";
+            std::cout << "Введите номер планшета для редактирования (1-" << tab.getSize() << "): ";
             std::cin >> index;
 
-            if (index >= 1 && index <= tabletCount)
+            if (index >= 1 && index <= tab.getSize())
             {
-                editTablet(tablets[index - 1]);
+                editTablet(tab[index - 1]);
                 std::cout << "Планшет отредактирован!" << std::endl;
             }
             else
@@ -514,15 +514,11 @@ void tab_menu()
         case 4:
         {
             int index;
-            std::cout << "Введите номер планшета для удаления (1-" << tabletCount << "): ";
+            std::cout << "Введите номер планшета для удаления (1-" << tab.getSize() << "): ";
             std::cin >> index;
-            if (index >= 1 && index <= tabletCount)
+            if (index >= 1 && index <= tab.getSize())
             {
-                for (int i = index - 1; i < tabletCount - 1; i++)
-                {
-                    tablets[i] = tablets[i + 1];
-                }
-                tabletCount--;
+                tab.removeIndex(index - 1);
                 std::cout << "Планшет удален!" << std::endl;
             }
             else
