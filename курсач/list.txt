@@ -1,0 +1,18 @@
+g++ -o main \ 
+g++ -o main  
+g++ -o main
+./main.cpp \
+./source/Apartment.cpp \
+./source/calc/calc.cpp \
+./source/Commercial.cpp \
+./source/EngineSystem.cpp \
+./source/Garage.cpp \
+./source/House.cpp \
+./source/Land.cpp \
+./source/NonResidential.cpp \
+./source/Office.cpp \
+./source/PrivateSector.cpp \
+./source/Property.cpp \
+./source/Storage.cpp \
+./source/Users/RegUser.cpp \
+./source/Users/Users.cpp \
