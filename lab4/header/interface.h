@@ -6,30 +6,21 @@
 #include "mono.h"
 #include "tablet.h"
 
+template<class T>
 class Interface
 {
 private:
-    LinkedList<MonoBlock> monoblocks;
-    LinkedList<Laptop> laptops;
-    LinkedList<Tablet> tablets;
+    LinkedList<T> computer;
 
 public:
-    Interface(): monoblocks(), laptops(), tablets(){};
-    Interface(const Interface &other)
-    {
-        monoblocks = other.monoblocks;
-        laptops = other.laptops;
-        tablets = other.tablets;
-    }
+    Interface(){};
     ~Interface() = default;
 
-    void mn_menu();
-    void laptops_menu();
-    void tablets_menu();
-
-    void editComputingMachine(ComputingMachine &device);
-
+    void menu();
+    void fun();
+    void editComputingMachine(T &device);
     void sortMonoblocksByRAM();
 };
+#include "../source/interface.tpp"
 
 #endif

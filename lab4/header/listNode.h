@@ -9,6 +9,9 @@ template <typename T>
 class Node
 {
     friend class LinkedList<T>;
+    template <typename U>
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList<U> &list);
+
     T data;
     Node<T> *next;
     Node<T> *prev;
@@ -72,9 +75,12 @@ public:
     int find(const T &value);
     T &operator[](int index);
     Node<T> *begin();
-    friend std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list);
-    friend std::istream &operator>>(std::istream &is, LinkedList<T> &list);
+    template <typename U>
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList<U> &list);
+    template <typename U>
+    friend std::istream &operator>>(std::istream &is, LinkedList<U> &list);
     int getSize();
 };
 
+#include "../source/listNode.tpp"
 #endif

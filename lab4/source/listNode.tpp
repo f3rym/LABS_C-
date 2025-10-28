@@ -156,7 +156,7 @@ Node<T> *LinkedList<T>::begin()
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list)
+std::ostream &operator<< (std::ostream &os, const LinkedList<T> &list)
 {
     Node<T> *curr = list.head;
     for (int i = 0; i < list.size; i++)
