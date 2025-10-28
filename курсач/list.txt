@@ -1,6 +1,4 @@
 g++ -o main \ 
-g++ -o main  
-g++ -o main
 ./main.cpp \
 ./source/Apartment.cpp \
 ./source/calc/calc.cpp \

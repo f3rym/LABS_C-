@@ -51,6 +51,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, House &house);
     friend std::istream &operator>>(std::istream &is, House &house);
+
+    virtual bool writeToFile(const char *filename);
+    LinkedList<House> readFromFile(const char *filename);
     int getNumHouse();
     int getCountRoom();
     int getFloorCount();

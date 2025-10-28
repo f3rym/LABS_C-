@@ -18,7 +18,7 @@ public:
     };
 
     Storage(double area, int pr, char *c, char *r, char *s, int ownerId,
-         char *cond, char *m, bool parking, bool secure,
+            char *cond, char *m, bool parking, bool secure,
             char *temp, int volume, bool truck)
         : Commercial(area, pr, c, r, s, ownerId, cond, m, parking, secure)
     {
@@ -39,6 +39,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Storage &st);
     friend std::istream &operator>>(std::istream &is, Storage &st);
+
+    virtual bool writeToFile(const char *filename);
+    LinkedList<Storage> readFromFile(const char *filename);
 
     char *getTempRegime();
     int getStorageVolume();

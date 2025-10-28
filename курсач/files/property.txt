@@ -1,7 +1,0 @@
-apartment 1 2 322.00   45000   Mi  ha i 3 32 43 5 LDrako 0
-house     2 2 455.00   900000  Paw  el Ani 32 4 3 Vich 0 
-office    2 2 123.00   321     123 321 123 321 123 1 1 123 32 12 2
-garage    3 2 1.00     -43     Шибуя ХУео Цаодзиииииииии Хранитель 0 0 0 0
-land 4 5 100000.00 0 minsk minskaya frunza gorniy
-apartment 5 6 150.00 200  addas asdad 10 1 12 100 iz_derevni_sukaaaaaa 1
-apartment 5 7 150.00 10 minsk minskaya frunza 10 2 99 10 kl 1

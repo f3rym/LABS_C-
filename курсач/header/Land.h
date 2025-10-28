@@ -29,6 +29,9 @@ public:
     ~Land() = default;
     friend std::ostream &operator<<(std::ostream &os, Land &land);
     friend std::istream &operator>>(std::istream &is, Land &land);
+
+    virtual bool writeToFile(const char *filename);
+    LinkedList<Land> readFromFile(const char *filename);
     char *getLandType();
 
     void setLandType(char *type);

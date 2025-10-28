@@ -73,28 +73,17 @@ void saveUserToFile(const char *type, User *user)
     {
         file << ' ' << ru->getBalance();
     }
-    // else if (Admin *ad = dynamic_cast<Admin *>(user))
-    // {
-    //     int lc = ad->getLogCount();
-    //     file << ' ' << lc;
-    //     for (int i = 0; i < lc; ++i)
-    //     {
-    //         file << ' ' << std::quoted(std::string(ad->getLog(i)));
-    //     }
-    // }
 
     file << '\n';
     file.close();
 }
 
-// loadUsersFromFile
-std::vector<User *> loadUsersFromFile()
+std::vector<User> loadUsersFromFile()
 {
-    std::vector<User *> users;
+    std::vector<User> users;
     std::ifstream file("files/users.txt");
     if (!file.is_open())
     {
-        // если файла нет — возвращаем пустой вектор
         std::cerr << "Файл files/users.txt не найден — верну пустой список пользователей\n";
         return users;
     }
@@ -121,52 +110,46 @@ std::vector<User *> loadUsersFromFile()
         if (!(iss >> std::quoted(name) >> std::quoted(password) >> isActiveInt))
             continue;
 
-        User *u = nullptr;
+        User u;
         if (type == "admin")
         {
-            Admin *ad = new Admin();
-            // читаем logCount
+            Admin admin;
             int logCount = 0;
             if (!(iss >> logCount))
                 logCount = 0;
-            // читаем logCount строк
             for (int i = 0; i < logCount; ++i)
             {
                 std::string logEntry;
                 if (iss >> std::quoted(logEntry))
                 {
-                    ad->addLog(logEntry.c_str());
+                    admin.addLog(logEntry.c_str());
                 }
                 else
                 {
-                    // недочитан лог — прекращаем
                     break;
                 }
             }
-            u = ad;
+            u = admin;
         }
         else if (type == "user" || type == "reguser")
         {
-            RegUser *ru = new RegUser();
+            RegUser ru;
             int bal = 0;
             if (!(iss >> bal))
-                bal = ru->getBalance(); 
-            ru->setBalance(bal);
+                bal = ru.getBalance(); 
+            ru.setBalance(bal);
             u = ru;
         }
         else
         {
-            User *uu = new User();
+            User uu;
             u = uu;
         }
 
-        if (!u)
-            continue;
-
-        u->setId(id);
-        u->setName(const_cast<char *>(name.c_str()));
-        u->setPassword(const_cast<char *>(password.c_str()));
-        u->setIsActive(isActiveInt != 0);
+        u.setId(id);
+        u.setName(const_cast<char *>(name.c_str()));
+        u.setPassword(const_cast<char *>(password.c_str()));
+        u.setIsActive(isActiveInt != 0);
 
         users.push_back(u);
         if (id > maxId)
@@ -174,9 +157,7 @@ std::vector<User *> loadUsersFromFile()
 
 
     }
-
     file.close();
-
     User::setNextId(maxId + 1);
 
     return users;

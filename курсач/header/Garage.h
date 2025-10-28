@@ -16,7 +16,7 @@ public:
     };
 
     Garage(double area, int pr, char *c, char *r, char *s, int ownerId,
-          char *purp, bool vent, bool fire, bool electricity, bool heating)
+           char *purp, bool vent, bool fire, bool electricity, bool heating)
         : NonResidential(area, pr, c, r, s, ownerId, purp, vent, fire)
     {
         hasElectricity = electricity;
@@ -34,6 +34,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Garage &gar);
     friend std::istream &operator>>(std::istream &is, Garage &gar);
+    virtual bool writeToFile(const char *filename);
+    LinkedList<Garage> readFromFile(const char *filename);
     bool getHasElectricity();
     bool getHasHeating();
 

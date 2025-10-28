@@ -21,11 +21,11 @@ std::ostream &operator<<(std::ostream &os, Apartment &ap)
     Property &pr = ap;
     os << pr;
     os << std::left;
-    os << std::setw(6) << ap.countRoom;
+    os << std::setw(8) << ap.countRoom;
     os << std::setw(6) << ap.numHouse;
     os << std::setw(6) << ap.numApartment;
     os << std::setw(6) << ap.numFloor;
-    os << std::setw(10) << ap.metro;
+    os << std::setw(12) << ap.metro;
     if (ap.repair)
         os << std::setw(4) << "+";
     else
@@ -37,15 +37,15 @@ void Apartment::info()
     Property::info();
 
     std::cout << std::left;
-    std::cout << std::setw(6) << "Комнат"
+    std::cout << std::setw(8) << "Комнат"
               << " | " << std::setw(6) << "Дом"
               << " | " << std::setw(6) << "Кв."
               << " | " << std::setw(6) << "Этаж"
-              << " | " << std::setw(10) << "Метро"
-              << " | " << std::setw(4) << "Рем."
-              << " |\n";
+              << " | " << std::setw(12) << "Метро"
+              << " | " << std::setw(6) << "Рем."
+              << " |" << std::endl;
+    std::cout << "--------------------------------------------------------------------------------------------" << std::endl;
 }
-
 std::istream &operator>>(std::istream &is, Apartment &ap)
 {
     Property &pr = ap;
@@ -64,4 +64,48 @@ std::istream &operator>>(std::istream &is, Apartment &ap)
     std::cout << "Есть ремонт (1-да/0-нет): ";
     is >> ap.repair;
     return is;
+}
+
+bool Apartment::writeToFile(const char *filename)
+{
+    std::ofstream file(filename, std::ios::app);
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для записи\n";
+        return false;
+    }
+    file << "apartment" << " ";
+    Property::writeToFile(file);
+    file << " " << this->countRoom << " " << this->numHouse << " " << this->numApartment << " " << this->numFloor << " " << this->metro << " " << this->repair << std::endl;
+    return true;
+}
+
+LinkedList<Apartment> Apartment::readFromFile(const char *filename)
+{
+    LinkedList<Apartment> apartments;
+    std::ifstream file(filename);
+
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для чтения\n";
+        return apartments;
+    }
+
+    char type[MAX_STR];
+    Apartment temp;
+    while (file >> type)
+    {
+        if (strcmp(type, "apartment") == 0)
+        {
+            Property &pr = temp;
+            pr = Property::readFromFile(file);
+            file >> temp.countRoom >> temp.numHouse >> temp.numApartment >> temp.numFloor >> temp.metro >> temp.repair;
+            apartments.addToEnd(temp);
+        }
+        else
+        {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    return apartments;
 }

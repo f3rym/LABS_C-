@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "../header.h"
 #include "Property.h"
 
@@ -19,7 +18,7 @@ public:
     };
 
     NonResidential(double area, int pr, char *c, char *r, char *s, int ownerId,
-         char *purp, bool vent, bool fire) : Property(area, pr, c, r, s, ownerId)
+                   char *purp, bool vent, bool fire) : Property(area, pr, c, r, s, ownerId)
     {
         strcpy_s(purpose, purp);
         hasVentilation = vent;
@@ -37,6 +36,8 @@ public:
     friend std::ostream &operator<<(std::ostream &os, NonResidential &noRes);
     friend std::istream &operator>>(std::istream &is, NonResidential &noRes);
     virtual void info() override;
+    virtual bool writeToFile(std::ofstream &file) override;
+    NonResidential readFromFile(std::ifstream &file);
 
     char *getPurpose();
     bool getHasVentilation();

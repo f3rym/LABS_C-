@@ -55,4 +55,4 @@ public:
 
 void saveUserToFile(const char *filename, User *user);
 
-std::vector<User *> loadUsersFromFile();
+std::vector<User> loadUsersFromFile();

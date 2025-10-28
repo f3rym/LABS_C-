@@ -1,0 +1,1 @@
+apartment 1 3 30 45000 Minskaya Minsk Sverdlova 3 32 34 4 Lenina 1

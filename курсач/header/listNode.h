@@ -3,16 +3,15 @@
 
 #include "../header.h"
 
-template<typename T>
+template <typename T>
 class Node
 {
 public:
     T data;
-    Node<T>* next;
-    Node<T>* prev;
+    Node<T> *next;
+    Node<T> *prev;
     Node()
     {
-        data = NULL;
         next = nullptr;
         prev = nullptr;
     }
@@ -22,21 +21,21 @@ public:
         next = nullptr;
         prev = nullptr;
     }
-    Node(Node &other)
+    Node(const Node &other)
     {
         data = other.data;
-        next = other.next;
-        prev = other.prev;
+        next = nullptr;
+        prev = nullptr;
     }
-
 };
 
-template<typename T>
+template <typename T>
 class LinkedList
 {
-    Node<T>* head;
-    Node<T>* tail;
+    Node<T> *head;
+    Node<T> *tail;
     int size;
+
 public:
     LinkedList()
     {
@@ -50,7 +49,7 @@ public:
     };
     bool isEmpty()
     {
-        if(head == nullptr)
+        if (head == nullptr)
             return true;
         return false;
     }
@@ -63,6 +62,8 @@ public:
             delete curr;
             curr = next;
         }
+        head = tail = nullptr;
+        size = 0;
     }
     LinkedList(const LinkedList &other)
     {
@@ -80,16 +81,7 @@ public:
     {
         if (this != &other)
         {
-            Node<T> *curr = head;
-            while (curr != nullptr)
-            {
-                Node<T> *next = curr->next;
-                delete curr;
-                curr = next;
-            }
-            head = nullptr;
-            tail = nullptr;
-            size = 0;
+            free();
             Node<T> *other_curr = other.head;
             while (other_curr != nullptr)
             {
@@ -99,7 +91,7 @@ public:
         }
         return *this;
     }
-    void addToEnd(const T& value)
+    void addToEnd(const T &value)
     {
         Node<T> *newNode = new Node<T>(value);
         if (head == nullptr)
@@ -112,7 +104,7 @@ public:
         }
         size++;
     }
-    void addToFront(const T& value)
+    void addToFront(const T &value)
     {
         Node<T> *newNode = new Node<T>(value);
         if (head == nullptr)
@@ -125,7 +117,7 @@ public:
         }
         size++;
     }
-    bool removeIndex(int index)
+    bool removeByIndex(int index)
     {
         if (index < 0 || index >= size)
         {
@@ -171,10 +163,10 @@ public:
         num = LinkedList::find(value);
         if (num == -1)
             return false;
-        return removeIndex(num);
+        return removeByIndex(num);
     }
 
-    int find(const T& value)
+    int find(const T &value)
     {
         if (head == nullptr)
             return -1;
@@ -191,18 +183,18 @@ public:
         }
         return -1;
     }
-    T& operator[](int index)
+    T &operator[](int index)
     {
-        Node<T> *curr = head;
-        for (int i = 0; i < index; i++)
-            curr = curr->next;
-        return curr->data;
+            Node<T> *curr = head;
+            for (int i = 0; i < index; i++)
+                curr = curr->next;
+            return curr->data;
     }
-    Node<T> *getHead()
+    Node<T> *begin()
     {
         return head;
     }
-    friend std::ostream &operator<<(std:: ostream &os, LinkedList<T> &list)
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList<T> &list)
     {
         Node<T> *curr = list.head;
         for (int i = 0; i < list.size; i++)
@@ -213,6 +205,14 @@ public:
         }
         return os;
     }
+    friend std::istream &operator>>(std::istream &is, LinkedList<T> &list)
+    {
+        T value;
+        if (is >> value)
+            list.addToEnd(value);
+        return is;
+    }
+
     int getSize()
     {
         return size;

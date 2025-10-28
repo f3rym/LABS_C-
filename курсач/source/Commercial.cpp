@@ -47,3 +47,20 @@ std::istream &operator>>(std::istream &is, Commercial &com)
     is >> com.secureSystem;
     return is;
 }
+
+bool Commercial::writeToFile(std::ofstream &file)
+{
+
+    Property::writeToFile(file);
+    file << " " << this->condition << " " << this->metro << " " << this->hasParking << " " << this->secureSystem;
+    return true;
+}
+
+Commercial Commercial::readFromFile(std::ifstream &file)
+{
+    Commercial result;
+    Property &pr = result;
+    pr = Property::readFromFile(file);
+    file >> result.condition >> result.metro >> result.hasParking >> result.secureSystem;
+    return result;
+}

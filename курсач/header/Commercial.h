@@ -41,7 +41,10 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Commercial &com);
     friend std::istream &operator>>(std::istream &is, Commercial &com);
-    char *getCondition(); 
+    virtual bool writeToFile(std::ofstream &file) override;
+    Commercial readFromFile(std::ifstream &file);
+
+    char *getCondition();
     char *getMetro(); 
     bool getHasParking(); 
     bool getSecureSystem(); 

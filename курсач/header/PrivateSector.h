@@ -20,7 +20,7 @@ public:
     };
 
     PrivateSector(double area, int pr, char *c, char *r, char *s, int ownerId,
-         double sizeReg, double distMKAD, char *rel, bool utils)
+                  double sizeReg, double distMKAD, char *rel, bool utils)
         : Property(area, pr, c, r, s, ownerId)
     {
         sizeRegion = sizeReg;
@@ -42,10 +42,12 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, PrivateSector &apart);
     friend std::istream &operator>>(std::istream &is, PrivateSector &apart);
-    double getSizeRegion() ;
-    double getDistanceToMKAD() ;
-    char *getRelief() ;
-    bool getHasUtilities() ;
+    PrivateSector readFromFile(std::ifstream &file);
+    virtual bool writeToFile(std::ofstream &file) override;
+    double getSizeRegion();
+    double getDistanceToMKAD();
+    char *getRelief();
+    bool getHasUtilities();
 
     void setSizeRegion(double sizeReg);
     void setDistanceToMKAD(double distMKAD);

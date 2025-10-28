@@ -1,7 +1,5 @@
-user  1 "FeRyM" "drakoGAI" 1 999999
-user  2 "Pasha" "pasha.pasha" 1 4500
-user  3 "true" "false" 1 6666
-admin 4 "2" "2" 0
-user  5 "zolo" "qwe" 1 1000000
-admin 6 "admin" "1" 1
-user  7 "2" "1" 0 10000
+user  1 FeRyM wifgkherg43j34nj 1 1500
+user  2 Pasha retriver3 1 4500
+user  3 user user 1 1000
+admin 4 admin admin 1
+admin 5 "fe" "fe" 1

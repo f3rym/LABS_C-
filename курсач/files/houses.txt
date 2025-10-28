@@ -1,0 +1,1 @@
+house 1 3 340 340000 Minskaya Minsk Wertye 1000 0 Ravnina 1 32 65 4 Skvaizna 1 Kirpich

@@ -4,7 +4,6 @@
 #include "listNode.h"
 class Property
 {
-    static int nextPropertyId;
     double totalArea;
     int price;
     char city[MAX_STR];
@@ -12,14 +11,12 @@ class Property
     char street[MAX_STR];
 
     int ownerId;
-    int propertyId;
     bool isActive;
 
 public:
     Property()
     {
         ownerId = -1;
-        propertyId = nextPropertyId++;
         isActive = true;
         totalArea = 0.0;
         price = 0;
@@ -34,7 +31,6 @@ public:
         price = pr;
         this->ownerId = ownerId;
         isActive = true;
-        propertyId = nextPropertyId++;
         strcpy_s(city, c);
         strcpy_s(region, r);
         strcpy_s(street, s);
@@ -44,7 +40,6 @@ public:
     {
         this->ownerId = other.ownerId;
         isActive = other.isActive;
-        propertyId = other.propertyId;
         totalArea = other.totalArea;
         price = other.price;
         strcpy_s(city, other.city);
@@ -56,6 +51,9 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Property &pr);
     friend std::istream &operator>>(std::istream &is, Property &pr);
+
+    virtual bool writeToFile(std::ofstream &file);
+    Property readFromFile(std::ifstream &file);
 
     double getTotalArea();
     int getPrice();
@@ -69,12 +67,8 @@ public:
     void setRegion(char *r);
     void setStreet(char *s);
     int getOwnerId() const { return ownerId; }
-    int getPropertyId() const  { return propertyId; }
     bool getIsActive() const { return isActive; }
 
     void setOwnerId(int id) { ownerId = id; }
-    void setPropertyId(int id) { propertyId = id; }
     void setIsActive(bool active) { isActive = active; }
 };
-void savePropertyToFile(const char *type, Property *prop);
-LinkedList<Property *> loadPropertyFromFile();

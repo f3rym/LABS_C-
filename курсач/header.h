@@ -8,6 +8,7 @@
 #include <cstring>
 #include <string>
 #include <sstream>
+#include <limits>
 
 // #include "header/Property.h"
 // #include "header/Users/User.h"

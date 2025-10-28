@@ -48,3 +48,46 @@ std::istream &operator>>(std::istream &is, Office &off)
     is >> off.numFloor;
     return is;
 }
+
+bool Office::writeToFile(const char *filename)
+{
+    std::ofstream file(filename, std::ios::app);
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для записи\n";
+        return false;
+    }
+    file << "office" << " ";
+    Commercial::writeToFile(file);
+    file << " " << this->totalWorkplaces << " " << this->numHouse << " " << this->countPremises << " " << this->numFloor << std::endl;
+    return true;
+}
+
+LinkedList<Office> Office::readFromFile(const char *filename)
+{
+    LinkedList<Office> office;
+    std::ifstream file(filename);
+
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для чтения\n";
+        return office;
+    }
+    char type[MAX_STR];
+    Office temp;
+    while (file >> type)
+    {
+        if (strcmp(type, "office") == 0)
+        {
+            Commercial &pr = temp;
+            pr = Commercial::readFromFile(file);
+            file >> temp.totalWorkplaces >> temp.numHouse >> temp.countPremises >> temp.numFloor;
+            office.addToEnd(temp);
+        }
+        else
+        {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    return office;
+}

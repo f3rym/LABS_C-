@@ -49,6 +49,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Apartment &apart);
     friend std::istream &operator>>(std::istream &is, Apartment &apart);
+    virtual bool writeToFile(const char *filename);
+    LinkedList<Apartment> readFromFile(const char *filename);
     int getCountRoom();
     int getNumHouse();
     int getNumApartment();

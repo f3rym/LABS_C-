@@ -30,10 +30,10 @@ void NonResidential::info()
     Property::info();
 
     std::cout << std::left;
-    std::cout << " | " << std::setw(10) << "Назначение"
+    std::cout << std::setw(10) << "Назначение"
               << " | " << std::setw(3) << "Вент"
-              << " | " << std::setw(3) << "ПБ"
-              << " |\n";
+              << " | " << std::setw(3) << "Пож.Без."
+              << " |";
 }
 std::istream &operator>>(std::istream &is, NonResidential &nr)
 {
@@ -46,4 +46,21 @@ std::istream &operator>>(std::istream &is, NonResidential &nr)
     std::cout << "Есть пожарная безопасность (1-да/0-нет): ";
     is >> nr.hasFireSafety;
     return is;
+}
+
+bool NonResidential::writeToFile(std::ofstream &file)
+{
+
+    Property::writeToFile(file);
+    file << " " << this->purpose << " " << this->hasVentilation << " " << this->hasFireSafety;
+    return true;
+}
+
+NonResidential NonResidential::readFromFile(std::ifstream &file)
+{
+    NonResidential result;
+    Property &pr = result;
+    pr = Property::readFromFile(file);
+    file >> result.purpose >> result.hasVentilation >> result.hasFireSafety;
+    return result;
 }

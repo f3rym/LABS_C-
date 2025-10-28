@@ -83,7 +83,7 @@ blockBuild() {
     countBlock=$(( (list + 2) / 3 ))
 
     for (( numBlock = 1; numBlock <= countBlock; numBlock++ )); do
-        compiler ${numBlock} ${list} || return 1
+        compiler "${numBlock}" "${list}" || return 1
     done
 }
 
@@ -102,8 +102,23 @@ reBlockBuild() {
                 break
             fi
         done
-        (( rebuild )) && compiler "$numBlock" "$list" || echo "Block $numBlock is up-to-date"
+        if (( rebuild )); then
+            if ! compiler "$numBlock" "$list"; then
+                exit 1
+            fi
+        else 
+            echo "Block $numBlock is up-to-date"
+        fi
     done
+}
+printCodeExec(){
+    local error=$?
+    echo ""
+    if ((error == 0)); then
+        echo -e "\e[32m✔ Return code ... ${error}\e[0m"
+    else 
+        echo -e "\e[31m✗ Return code ... ${error}\e[0m"
+    fi
 }
 
 g() {
@@ -122,12 +137,12 @@ g() {
     if g++ -o build/main -Wl,--start-group $libs -Wl,--end-group; then
         echo -e "\e[32m✔ Done!\e[0m"
         ./build/main
+        printCodeExec
     else
         echo -e "\e[31m✗ Link error!\e[0m"
         [[ -f "build/temp/prev" ]] && cp build/temp/prev build/main && echo -e "\e[33mPrev version restored\e[0m" && ./build/main
         return 1
     fi
-   rm -rf build/temp
 }
 release() {
     mkdir -p build build/temp build/prev
@@ -153,7 +168,7 @@ if [ ! -f "build/main" ]; then
     blockBuild || exit 1
     g || exit 1
 else
-    updatedFiles=$(find . -name "*.cpp" -o -name "*.h" -newer build/main 2>/dev/null)
+    updatedFiles=$(find .  -name "*.?pp" -o -name "*.h" -newer build/main 2>/dev/null)
     if [[ -n "$updatedFiles" ]]; then
         echo "Changes detected, compiling..."
         reBlockBuild || exit 1
@@ -161,5 +176,6 @@ else
     else
         echo "Compiling is not required"
         ./build/main
+        printCodeExec
     fi
 fi

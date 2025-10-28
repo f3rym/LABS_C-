@@ -44,6 +44,8 @@ public:
     friend std::istream &operator>>(std::istream &is, Office &ofc);
     virtual void info();
 
+    virtual bool writeToFile(const char *filename);
+    LinkedList<Office> readFromFile(const char *filename);
     int getTotalWorkplaces();
     int getNumHouse();
     int getCountPremises();

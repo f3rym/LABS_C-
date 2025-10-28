@@ -25,12 +25,13 @@ std::ostream &operator<<(std::ostream &os, Garage &gar)
 
 void Garage::info()
 {
+    NonResidential::info();
     std::cout << std::left;
-    std::cout << std::setw(6) << "N"
-              << std::setw(6) << "Площадь(м²)"
-              << std::setw(3) << "Электричество"
-              << std::setw(3) << "Отопление";
-            }
+    std::cout << std::setw(6) << "Пл.Раб.пов(м²)"
+        << " | " << std::setw(3) << "Электричество"
+        << " | " << std::setw(3) << "Отопление"
+        << "  |\n";
+}
 
 std::istream &operator>>(std::istream &is, Garage &gar)
 {
@@ -41,4 +42,47 @@ std::istream &operator>>(std::istream &is, Garage &gar)
     std::cout << "Есть отопление (1-да/0-нет): ";
     is >> gar.hasHeating;
     return is;
+}
+
+bool Garage::writeToFile(const char *filename)
+{
+    std::ofstream file(filename, std::ios::app);
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для записи\n";
+        return false;
+    }
+    file << "garage" << " ";
+    NonResidential::writeToFile(file);
+    file << " " << this->hasElectricity << " " << this->hasHeating << std::endl;
+    return true;
+}
+
+LinkedList<Garage> Garage::readFromFile(const char *filename)
+{
+    LinkedList<Garage> gar;
+    std::ifstream file(filename);
+
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для чтения\n";
+        return gar;
+    }
+    char type[MAX_STR];
+    Garage temp;
+    while (file >> type)
+    {
+        if (strcmp(type, "garage") == 0)
+        {
+            NonResidential &pr = temp;
+            pr = NonResidential::readFromFile(file);
+            file >> temp.hasElectricity >> temp.hasHeating;
+            gar.addToEnd(temp);
+        }
+        else
+        {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    return gar;
 }

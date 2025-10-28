@@ -47,3 +47,46 @@ std::istream &operator>>(std::istream &is, Storage &st)
     is >> st.truckAccess;
     return is;
 }
+
+bool Storage::writeToFile(const char *filename)
+{
+    std::ofstream file(filename, std::ios::app);
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для записи\n";
+        return false;
+    }
+    file << "storage" << " ";
+    Commercial::writeToFile(file);
+    file << " " << this->tempRegime << " " << this->storageVolume << " " << this->truckAccess << std::endl;
+    return true; 
+}
+
+LinkedList<Storage> Storage::readFromFile(const char *filename)
+{
+    LinkedList<Storage> com;
+    std::ifstream file(filename);
+
+    if (!file)
+    {
+        std::cerr << "Ошибка открытия файла для чтения\n";
+        return com;
+    }
+    char type[MAX_STR];
+    Storage temp;
+    while (file >> type)
+    {
+        if (strcmp(type, "storage") == 0)
+        {
+            Commercial &pr = temp;
+            pr = Commercial::readFromFile(file);
+            file >> temp.tempRegime >> temp.storageVolume >> temp.truckAccess;
+            com.addToEnd(temp);
+        }
+        else
+        {
+            file.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+    return com;
+}
