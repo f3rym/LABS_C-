@@ -11,7 +11,7 @@
 #define MAX_CMP 20
 
 class ComputingMachine;
-class PortableMachine;
+class portableMachine;
 class StationaryMachine;
 class Laptop;
 class Tablet;
@@ -23,8 +23,8 @@ class Node;
 
 void waitForAnyKey();
 void mn_menu();
-void lap_menu();
-void tab_menu();
+void laptops_menu();
+void tablets_menu();
 
 int againProg();
 #endif

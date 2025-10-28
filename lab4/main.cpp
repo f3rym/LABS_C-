@@ -5,14 +5,19 @@
 #include "header/portableMachine.h"
 #include "header/stationaryMachine.h"
 #include "header/Tablet.h"
+#include "header/interface.h"
+
+#include <windows.h>
 
 int main()
 {
-    setlocale(LC_ALL, "ru_RU.UTF-8");
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+    Interface app;
     int again = 1;
+    int m;
     while (again)
     {
-        system("cls");
         int choice;
         while (choice != 0)
         {
@@ -28,15 +33,15 @@ int main()
             case 0:
                 break;
             case 1:
-                mn_menu();
+                app.mn_menu();
                 waitForAnyKey();
                 break;
             case 2:
-                lap_menu();
+                app.laptops_menu();
                 waitForAnyKey();
                 break;
             case 3:
-                tab_menu();
+                app.tablets_menu();
                 waitForAnyKey();
                 break;
             default:
@@ -44,7 +49,6 @@ int main()
                 break;
             }
         }
-
         again = againProg();
     }
 }

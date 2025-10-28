@@ -31,6 +31,8 @@ public:
     friend std::ostream &operator<<(std::ostream &os, MonoBlock &mono);
     friend std::istream &operator>>(std::istream &is, MonoBlock &mono);
     void info() override;
+    void setMenu() override;
+
     virtual ~MonoBlock() = default;
     int getSizeDisplay() const;
     bool getTouchScreen() const;

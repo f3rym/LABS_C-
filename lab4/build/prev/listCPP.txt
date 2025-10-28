@@ -1,0 +1,9 @@
+./main.cpp
+./myf.cpp
+./source/computingMachine.cpp
+./source/interface.cpp
+./source/laptop.cpp
+./source/mono.cpp
+./source/portableMachine.cpp
+./source/stationMachine.cpp
+./source/tablet.cpp

@@ -52,3 +52,42 @@ void MonoBlock::setSizeDisplay(int sizeDisplay)
 {
     this->sizeDisplay = sizeDisplay;
 }
+
+void MonoBlock::setMenu()
+{
+    StationaryMachine::setMenu(); 
+
+    int choice;
+    int intValue;
+    bool boolValue;
+
+    do
+    {
+        std::cout << "\n=== Редактирование параметров моноблока ===" << std::endl;
+        std::cout << "1. Изменить размер дисплея (" << sizeDisplay << "\")" << std::endl;
+        std::cout << "2. Изменить сенсорный экран (" << (touchScreen ? "Есть" : "Нет") << ")" << std::endl;
+        std::cout << "0. Назад" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            std::cout << "Введите новый размер дисплея (дюймы): ";
+            std::cin >> intValue;
+            setSizeDisplay(intValue);
+            std::cout << "Размер дисплея изменен!" << std::endl;
+            break;
+        case 2:
+            std::cout << "Сенсорный экран (1 - Есть, 0 - Нет): ";
+            std::cin >> boolValue;
+            setTouchScreen(boolValue);
+            std::cout << "Параметр сенсорного экрана изменен!" << std::endl;
+            break;
+        case 0:
+            break;
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    } while (choice != 0);
+}

@@ -4,33 +4,34 @@
 #include "../header.h"
 #include "computingMachine.h"
 
-class PortableMachine : public ComputingMachine
+class portableMachine : public ComputingMachine
 {
     int batteryHealth;
     int sizeDisplay;
 
 public:
-    PortableMachine() : ComputingMachine()
+    portableMachine() : ComputingMachine()
     {
         sizeDisplay = 0;
         batteryHealth = 0;
     };
-    PortableMachine(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay)
+    portableMachine(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay)
         : ComputingMachine(name, processor, ram)
     {
         this->batteryHealth = batteryHealth;
         this->sizeDisplay = sizeDisplay;
     };
-    PortableMachine(const PortableMachine &other) : ComputingMachine(other)
+    portableMachine(const portableMachine &other) : ComputingMachine(other)
     {
         this->batteryHealth = other.batteryHealth;
         this->sizeDisplay = other.sizeDisplay;
     };
-    PortableMachine &operator=(const PortableMachine &other);
-    friend std::ostream &operator<<(std::ostream &os, PortableMachine &pm);
-    friend std::istream &operator>>(std::istream &is, PortableMachine &pm);
+    portableMachine &operator=(const portableMachine &other);
+    friend std::ostream &operator<<(std::ostream &os, portableMachine &pm);
+    friend std::istream &operator>>(std::istream &is, portableMachine &pm);
     virtual void info() override;
-    ~PortableMachine() = default;
+    virtual void setMenu() override;
+    ~portableMachine() = default;
     int getBatteryHealth() const;
     int getSizeDisplay() const;
     void setBatteryHealth(int batteryHealth);

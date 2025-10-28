@@ -4,21 +4,21 @@
 #include "../header.h"
 #include "portableMachine.h"
 
-class Tablet : public PortableMachine
+class Tablet : public portableMachine
 {
     char OS[MAX_STR];
 
 public:
-    Tablet() : PortableMachine()
+    Tablet() : portableMachine()
     {
         OS[MAX_STR];
     };
     Tablet(char *name, char *processor, int ram, int batteryHealth, int sizeDisplay, char *OS)
-        : PortableMachine(name, processor, ram, batteryHealth, sizeDisplay)
+        : portableMachine(name, processor, ram, batteryHealth, sizeDisplay)
     {
         strcpy_s(this->OS, OS);
     };
-    Tablet(const Tablet &other) : PortableMachine(other)
+    Tablet(const Tablet &other) : portableMachine(other)
     {
         strcpy_s(this->OS, other.OS);
     };
@@ -27,6 +27,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
     friend std::istream &operator>>(std::istream &is, Tablet &mono);
     void info();
+    void setMenu();
     virtual ~Tablet() = default;
     const char *getOS() const;
     void setOS(const char *OS);

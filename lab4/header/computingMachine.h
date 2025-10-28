@@ -32,7 +32,7 @@ public:
     void setProcessor(char *processor);
     void setRam(int ram);
     virtual void info();
-
+    virtual void setMenu();
     virtual ~ComputingMachine() = default;
 };
 

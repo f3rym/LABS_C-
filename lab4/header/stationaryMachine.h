@@ -1,5 +1,4 @@
-#ifndef STATIONARYMACHINE_H
-#define STATIONARYMACHINE_H
+#pragma once
 
 #include "../header.h"
 #include "computingMachine.h"
@@ -26,10 +25,8 @@ public:
     friend std::ostream &operator<<(std::ostream &os, StationaryMachine &sm);
     friend std::istream &operator>>(std::istream &is, StationaryMachine &sm);
     virtual void info() override;
-
+    virtual void setMenu() override;
     virtual ~StationaryMachine() = default;
     int getPCISlots() const;
     void setPCISlots(int PCISlots);
 };
-
-#endif

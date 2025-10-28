@@ -1,7 +1,7 @@
 #include "../header.h"
 #include "../header/portableMachine.h"
 
-PortableMachine &PortableMachine::operator=(const PortableMachine &other)
+portableMachine &portableMachine::operator=(const portableMachine &other)
 {
     if (this != &other)
     {
@@ -12,7 +12,7 @@ PortableMachine &PortableMachine::operator=(const PortableMachine &other)
     return *this;
 }
 
-std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
+std::ostream &operator<<(std::ostream &os, portableMachine &pm)
 {
     ComputingMachine &com = pm;
     os << com;
@@ -21,7 +21,7 @@ std::ostream &operator<<(std::ostream &os, PortableMachine &pm)
     return os;
 }
 
-std::istream &operator>>(std::istream &is, PortableMachine &pm)
+std::istream &operator>>(std::istream &is, portableMachine &pm)
 {
     ComputingMachine &com = pm;
     is >> com;
@@ -32,19 +32,60 @@ std::istream &operator>>(std::istream &is, PortableMachine &pm)
     return is;
 }
 
-void PortableMachine::info()
+void portableMachine::info()
 {
     ComputingMachine::info();
     std::cout << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display";
 }
 
-int PortableMachine::getBatteryHealth() const { return batteryHealth; }
-int PortableMachine::getSizeDisplay() const { return sizeDisplay; }
-void PortableMachine::setBatteryHealth(int batteryHealth)
+void portableMachine::setMenu()
+{
+    ComputingMachine::setMenu();
+
+    int choice;
+    int intValue;
+
+    do
+    {
+        std::cout << "\n=== Редактирование параметров портативного устройства ===" << std::endl;
+        std::cout << "1. Изменить емкость батареи (" << batteryHealth << " mAh)" << std::endl;
+        std::cout << "2. Изменить размер дисплея (" << sizeDisplay << "\")" << std::endl;
+        std::cout << "0. Назад" << std::endl;
+        std::cout << "Выберите параметр для редактирования: ";
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            std::cout << "Введите новую емкость батареи (mAh): ";
+            std::cin >> intValue;
+            setBatteryHealth(intValue);
+            std::cout << "Емкость батареи изменена!" << std::endl;
+            break;
+        case 2:
+            std::cout << "Введите новый размер дисплея (дюймы): ";
+            std::cin >> intValue;
+            setSizeDisplay(intValue);
+            std::cout << "Размер дисплея изменен!" << std::endl;
+            break;
+        case 0:
+            break;
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    } while (choice != 0);
+}
+
+int portableMachine::getBatteryHealth() const
+{
+    return batteryHealth;
+}
+int portableMachine::getSizeDisplay() const { return sizeDisplay; }
+void portableMachine::setBatteryHealth(int batteryHealth)
 {
     this->batteryHealth = batteryHealth;
 }
-void PortableMachine::setSizeDisplay(int sizeDisplay)
+void portableMachine::setSizeDisplay(int sizeDisplay)
 {
     this->sizeDisplay = sizeDisplay;
 }
