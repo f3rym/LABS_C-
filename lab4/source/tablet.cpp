@@ -11,6 +11,47 @@ Tablet &Tablet::operator=(const Tablet &other)
     }
     return *this;
 }
+void Tablet::sortList(LinkedList<ComputingMachine*> &list)
+{
+    portableMachine::sortList(list);
+
+    int choice;
+
+    do
+    {
+        std::cout << "\n=== Сортировка параметров планшета ===" << std::endl;
+        std::cout << "1. Сортировка по операционной системе (OS)" << std::endl;
+        std::cout << "0. Пропустить" << std::endl;
+        std::cout << "Выберите параметр: ";
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            for (int i = 0; i < list.getSize() - 1; ++i)
+            {
+                for (int j = 0; j < list.getSize() - i - 1; ++j)
+                {
+                    Tablet *a = dynamic_cast<Tablet *>(list[j]);
+                    Tablet *b = dynamic_cast<Tablet *>(list[j + 1]);
+                    if (strcmp(a->OS, b->OS) < 0)
+                    {
+                        std::swap(list[j], list[j + 1]);
+                    }
+                }
+            }
+            std::cout << "Сортировка по OS завершена!" << std::endl;
+            break;
+
+        case 0:
+            std::cout << "Сортировка пропущена!" << std::endl;
+            break;
+
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    } while (choice != 0);
+}
 
 std::ostream &operator<<(std::ostream &os, Tablet &Tablet)
 {
@@ -44,7 +85,7 @@ void Tablet::setMenu()
     int choice;
     char buffer[MAX_STR];
 
-    do
+    if(choice != 0)
     {
         std::cout << "\n=== Редактирование параметров планшета ===" << std::endl;
         std::cout << "1. Изменить операционную систему (" << OS << ")" << std::endl;
@@ -66,7 +107,7 @@ void Tablet::setMenu()
         default:
             std::cout << "Неверный выбор!" << std::endl;
         }
-    } while (choice != 0);
+    } 
 }
 
 const char *Tablet::getOS() const { return OS; }

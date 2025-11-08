@@ -30,9 +30,15 @@ public:
     MonoBlock &operator=(const MonoBlock &other);
     friend std::ostream &operator<<(std::ostream &os, MonoBlock &mono);
     friend std::istream &operator>>(std::istream &is, MonoBlock &mono);
+    bool operator==(const MonoBlock &other) const
+    {
+        return StationaryMachine::operator==(other) &&
+               sizeDisplay == other.sizeDisplay &&
+               touchScreen == other.touchScreen;
+    }
     void info() override;
     void setMenu() override;
-
+    void sortList(LinkedList<ComputingMachine*> &list) override;
     virtual ~MonoBlock() = default;
     int getSizeDisplay() const;
     bool getTouchScreen() const;

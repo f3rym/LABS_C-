@@ -1,5 +1,6 @@
 #ifndef ComputingMachine_H
 #define ComputingMachine_H
+#include "listNode.h"
 
 #include "../header.h"
 
@@ -25,6 +26,12 @@ public:
     ComputingMachine &operator=(const ComputingMachine &other);
     friend std::ostream &operator<<(std::ostream &os, ComputingMachine &s);
     friend std::istream &operator>>(std::istream &is, ComputingMachine &s);
+    bool operator==(const ComputingMachine &other) const
+    {
+        return ram == other.ram &&
+               strcmp(name, other.name) == 0 &&
+               strcmp(processor, other.processor) == 0;
+    }
     const char *getName() const;
     const char *getProcessor() const;
     int getRam() const;
@@ -33,6 +40,7 @@ public:
     void setRam(int ram);
     virtual void info();
     virtual void setMenu();
+    virtual void sortList(LinkedList<ComputingMachine*> &list);
     virtual ~ComputingMachine() = default;
 };
 

@@ -2,6 +2,7 @@
 
 #include "../header.h"
 #include "computingMachine.h"
+#include "listNode.h"
 
 class StationaryMachine : public ComputingMachine
 {
@@ -24,6 +25,13 @@ public:
     StationaryMachine &operator=(const StationaryMachine &other);
     friend std::ostream &operator<<(std::ostream &os, StationaryMachine &sm);
     friend std::istream &operator>>(std::istream &is, StationaryMachine &sm);
+    virtual void sortList(LinkedList<ComputingMachine*> &list) override;
+
+    bool operator==(const StationaryMachine &other) const
+    {
+        return ComputingMachine::operator==(other) &&
+               PCISlots == other.PCISlots;
+    }
     virtual void info() override;
     virtual void setMenu() override;
     virtual ~StationaryMachine() = default;

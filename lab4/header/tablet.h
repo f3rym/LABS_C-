@@ -3,6 +3,7 @@
 
 #include "../header.h"
 #include "portableMachine.h"
+#include "listNode.h"
 
 class Tablet : public portableMachine
 {
@@ -26,8 +27,15 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, Tablet &mono);
     friend std::istream &operator>>(std::istream &is, Tablet &mono);
+    bool operator==(const Tablet &other) const
+    {
+        return portableMachine::operator==(other) && 
+               strcmp(OS, other.OS) == 0;            
+    }
+
     void info();
     void setMenu();
+    void sortList(LinkedList<ComputingMachine*> &list);
     virtual ~Tablet() = default;
     const char *getOS() const;
     void setOS(const char *OS);

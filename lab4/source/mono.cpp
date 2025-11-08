@@ -91,3 +91,62 @@ void MonoBlock::setMenu()
         }
     } while (choice != 0);
 }
+
+void MonoBlock::sortList(LinkedList<ComputingMachine*> &list)
+{
+    StationaryMachine::sortList(list);
+
+    int choice;
+
+    if (choice != 0)
+    {
+        std::cout << "\n=== Сортировка параметров моноблока ===" << std::endl;
+        std::cout << "1. Сортировка по размеру дисплея" << std::endl;
+        std::cout << "2. Сортировка по наличию сенсорного экрана" << std::endl;
+        std::cout << "0. Пропустить" << std::endl;
+        std::cout << "Выберите параметр: ";
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            for (int i = 0; i < list.getSize() - 1; ++i)
+            {
+                for (int j = 0; j < list.getSize() - i - 1; ++j)
+                {
+                    MonoBlock *a = dynamic_cast<MonoBlock *>(list[j]);
+                    MonoBlock *b = dynamic_cast<MonoBlock *>(list[j + 1]);
+                    if (a->sizeDisplay < b->sizeDisplay)
+                    {
+                        std::swap(list[j], list[j + 1]);
+                    }
+                }
+            }
+            std::cout << "Сортировка по размеру дисплея завершена!" << std::endl;
+            break;
+
+        case 2:
+            for (int i = 0; i < list.getSize() - 1; ++i)
+            {
+                for (int j = 0; j < list.getSize() - i - 1; ++j)
+                {
+                    MonoBlock *a = dynamic_cast<MonoBlock *>(list[j]);
+                    MonoBlock *b = dynamic_cast<MonoBlock *>(list[j + 1]);
+                    if (a->touchScreen < b->touchScreen)
+                    {
+                        std::swap(list[j], list[j + 1]);
+                    }
+                }
+            }
+            std::cout << "Сортировка по сенсорному экрану завершена!" << std::endl;
+            break;
+
+        case 0:
+            std::cout << "Сортировка пропущена!" << std::endl;
+            break;
+
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    }
+}

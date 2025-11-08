@@ -79,6 +79,58 @@ void ComputingMachine::setMenu()
         }
     }
 }
+void ComputingMachine::sortList(LinkedList<ComputingMachine*> &list)
+{
+    if (list.getSize() == 0)
+    {
+        std::cout << "Нет машин для сортировки!" << std::endl;
+        return;
+    }
+
+    int choice;
+    std::cout << "\n=== Сортировка базовых параметров машин ===" << std::endl;
+    std::cout << "1. По названию" << std::endl;
+    std::cout << "2. По процессору" << std::endl;
+    std::cout << "3. По RAM" << std::endl;
+    std::cout << "0. Пропустить" << std::endl;
+    std::cout << "Выберите параметр для сортировки: ";
+    std::cin >> choice;
+    for (int i = 0; i < list.getSize() - 1; ++i)
+    {
+        for (int j = 0; j < list.getSize() - i - 1; ++j)
+        {
+            bool swapFlag = false;
+
+            switch (choice)
+            {
+            case 1:
+                if (strcmp(list[j]->name, list[j + 1]->name) < 0)
+                    swapFlag = true;
+                break;
+            case 2:
+                if (strcmp(list[j]->processor, list[j + 1]->processor) < 0)
+                    swapFlag = true;
+                break;
+            case 3:
+                if (list[j]->ram < list[j + 1]->ram)
+                    swapFlag = true;
+                break;
+            case 0:
+                std::cout << "Сортировка пропущена" << std::endl;
+                return;
+            default:
+                std::cout << "Неверный выбор!" << std::endl;
+                return;
+            }
+            if (swapFlag)
+            {
+                std::swap(list[j], list[j + 1]);
+            }
+        }
+    }
+
+    std::cout << "Сортировка завершена!" << std::endl;
+}
 
 void ComputingMachine::info()
 {

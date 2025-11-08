@@ -37,6 +37,66 @@ void portableMachine::info()
     ComputingMachine::info();
     std::cout << std::setw(20) << "Battery(mAh)" << std::setw(20) << "Size Display";
 }
+void portableMachine::sortList(LinkedList<ComputingMachine*> &list)
+{
+    ComputingMachine::sortList(list);
+
+    int choice;
+
+    if (choice != 0)
+    {
+        std::cout << "\n=== Сортировка параметров портативного устройства ===" << std::endl;
+        std::cout << "1. Сортировка по емкости батареи" << std::endl;
+        std::cout << "2. Сортировка по размеру дисплея" << std::endl;
+        std::cout << "0. Пропустить" << std::endl;
+        std::cout << "Выберите параметр: ";
+        std::cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            for (int i = 0; i < list.getSize() - 1; ++i)
+            {
+                for (int j = 0; j < list.getSize() - i - 1; ++j)
+                {
+                    portableMachine *a = dynamic_cast<portableMachine *>(list[j]);
+                    portableMachine *b = dynamic_cast<portableMachine *>(list[j + 1]);
+                    if (a->batteryHealth < b->batteryHealth)
+                    {
+                        portableMachine* temp = a;
+                        a = b;
+                        b = temp;
+                    }
+                }
+            }
+            std::cout << "Сортировка по батарее завершена!" << std::endl;
+            break;
+
+        case 2: 
+            for (int i = 0; i < list.getSize() - 1; ++i)
+            {
+                for (int j = 0; j < list.getSize() - i - 1; ++j)
+                {
+                    portableMachine *a = dynamic_cast<portableMachine *>(list[j]);
+                    portableMachine *b = dynamic_cast<portableMachine *>(list[j + 1]);
+                    if (a->sizeDisplay < b->sizeDisplay)
+                    {
+                        std::swap(list[j], list[j + 1]);
+                    }
+                }
+            }
+            std::cout << "Сортировка по размеру дисплея завершена!" << std::endl;
+            break;
+
+        case 0:
+            std::cout << "Сортировка пропущена!" << std::endl;
+            break;
+
+        default:
+            std::cout << "Неверный выбор!" << std::endl;
+        }
+    }
+}
 
 void portableMachine::setMenu()
 {

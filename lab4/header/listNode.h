@@ -9,9 +9,6 @@ template <typename T>
 class Node
 {
     friend class LinkedList<T>;
-    template <typename U>
-    friend std::ostream &operator<<(std::ostream &os, const LinkedList<U> &list);
-
     T data;
     Node<T> *next;
     Node<T> *prev;
@@ -33,6 +30,13 @@ public:
         next = nullptr;
         prev = nullptr;
     }
+
+    bool operator==(const Node<T> &other) const
+    {
+        return data == other.data;
+    }
+    template <typename U>
+    friend std::ostream &operator<<(std::ostream &os, const LinkedList<U> &list);
 };
 
 template <typename T>
@@ -67,18 +71,18 @@ public:
             curr = curr->next;
         }
     }
-    LinkedList &operator=(const LinkedList &other);
     void addToEnd(const T &value);
     void addToFront(const T &value);
     bool removeByIndex(int index);
     bool remove(const T &value);
-    int find(const T &value);
     T &operator[](int index);
     Node<T> *begin();
+    LinkedList &operator=(const LinkedList &other);
     template <typename U>
     friend std::ostream &operator<<(std::ostream &os, const LinkedList<U> &list);
     template <typename U>
     friend std::istream &operator>>(std::istream &is, LinkedList<U> &list);
+ //   void LinkedList<T>::swapNodes(Node<T> *a, Node<T> *b);
     int getSize();
 };
 

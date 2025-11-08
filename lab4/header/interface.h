@@ -6,20 +6,19 @@
 #include "mono.h"
 #include "tablet.h"
 
-template<class T>
+template <class T>
 class Interface
 {
-private:
     LinkedList<T> computer;
 
 public:
-    Interface(){};
+    Interface() {};
     ~Interface() = default;
 
     void menu();
     void fun();
     void editComputingMachine(T &device);
-    void sortMonoblocksByRAM();
+    void sortByParam();
 };
 #include "../source/interface.tpp"
 

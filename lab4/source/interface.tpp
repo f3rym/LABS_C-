@@ -2,7 +2,7 @@
 #include "../header/interface.h"
 
 template <class T>
-void Interface<T>::menu() 
+void Interface<T>::menu()
 {
     int choice;
 
@@ -23,17 +23,17 @@ void Interface<T>::menu()
         case 0:
             break;
         case 1:
-            //Interface<MonoBlock> obj1;
+            // Interface<MonoBlock> obj1;
             monoObj.fun();
             waitForAnyKey();
             break;
         case 2:
-           // Interface<Laptop> obj2;
+            // Interface<Laptop> obj2;
             laptopObj.fun();
             waitForAnyKey();
             break;
         case 3:
-           // Interface<Tablet> obj3;
+            // Interface<Tablet> obj3;
             tabletObj.fun();
             waitForAnyKey();
             break;
@@ -44,34 +44,26 @@ void Interface<T>::menu()
     } while (choice != 0);
 }
 
-template<class T>
+template <class T>
 void Interface<T>::editComputingMachine(T &device)
 {
     device.setMenu();
 }
 
-template<class T>
-void Interface<T>::sortMonoblocksByRAM()
+template <class T>
+void Interface<T>::sortByParam()
 {
-    if (computer.getSize() == 0)
+    LinkedList<ComputingMachine *> ptrList;
+    for (int i = 0; i < computer.getSize(); ++i)
     {
-        std::cout << "Нет компьютеров для сортировки!" << std::endl;
-        return;
+        ptrList.addToEnd(&computer[i]); 
     }
-
-    for (int i = 0; i < computer.getSize() - 1; i++)
-    {
-        for (int j = 0; j < computer.getSize() - i - 1; j++)
-        {
-            if (computer[j].getRam() < computer[j + 1].getRam())
-            {
-                T temp = computer[j];
-                computer[j] = computer[j + 1];
-                computer[j + 1] = temp;
-            }
-        }
-    }
-    std::cout << "Машины отсортированы по RAM (по убыванию)!" << std::endl;
+    computer[0].sortList(ptrList);
+    LinkedList<T> sortedList;
+    for (int i = 0; i < ptrList.getSize(); ++i)
+        sortedList.addToEnd(*dynamic_cast<T *>(ptrList[i]));
+    computer = sortedList;
+    std::cout << "Машины отсортированы!" << std::endl;
 }
 
 template <class T>
@@ -160,7 +152,7 @@ void Interface<T>::fun()
         }
         case 5:
         {
-            sortMonoblocksByRAM();
+            sortByParam();
             waitForAnyKey();
             break;
         }
@@ -172,4 +164,3 @@ void Interface<T>::fun()
         }
     } while (choice != 0);
 }
-
