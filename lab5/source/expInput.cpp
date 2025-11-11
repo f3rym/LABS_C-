@@ -11,10 +11,22 @@ int ExpInput::isNumber()
             int num;
             std::cout << "(ожидается число): ";
 
-            if (std::cin >> num ) //ДОДЕЛАЙ МАКС ИНТ МИН ИНТ И ЧТОБЫ ПРОВЕРЯЛОСЬ ЧТО ЧИСЛО БЕЗ МУСОРА
+            if (std::cin >> num) 
             {
                 std::cin.ignore(INT_MAX, '\n');
+                if (num > INT_MAX || num < INT_MIN)
+                {
+                    throw ExpInput(", значение вышло за границы", 2);
+                }
+
                 return num;
+            }
+            else if (std::cin.peek() != '\n')
+            {
+                std::cin.clear();
+                std::cin.ignore(INT_MAX, '\n');
+
+                throw ExpInput(", число введено не корректно", 3);
             }
             else
             {
@@ -30,6 +42,7 @@ int ExpInput::isNumber()
         }
     }
 }
+
 bool ExpInput::isBool()
 {
     while (true)
@@ -48,7 +61,7 @@ bool ExpInput::isBool()
             {
                 std::cin.clear();
                 std::cin.ignore(INT_MAX, '\n');
-                throw ExpInput(", введено не bool", 2);
+                throw ExpInput(", введено не bool", 4);
             }
         }
         catch (const ExpInput &e)
@@ -69,10 +82,27 @@ std::string ExpInput::isString()
             std::cin.getline(str, MAX_STR);
             if (str[0] == '\0')
             {
-                throw ExpInput(", строка пуста", 3);
+                throw ExpInput(", строка пуста", 5);
             }
             else
             {
+                for (int i = 0; str[i] != '\0'; i++)
+                {
+                    unsigned char c = str[i];
+                    if (!(c >= 'a' && c <= 'z') &&
+                        !(c >= 'A' && c <= 'Z') &&
+                        c != ' ' && c != '\'' && c != '-')
+                    {
+                        if (c > 127)
+                        {
+                            throw ExpInput(", строка имеет не-ASCII символы", 6);
+                        }
+                        else
+                        {
+                            throw ExpInput(", строка содержит запрещенные символы", 8);
+                        }
+                    }
+                }
                 return str;
             }
         }
