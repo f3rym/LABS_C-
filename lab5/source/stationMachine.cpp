@@ -3,7 +3,7 @@
 
 StationaryMachine &StationaryMachine::operator=(const StationaryMachine &other)
 {
-    
+
     if (this != &other)
     {
         ComputingMachine::operator=(other);
@@ -22,7 +22,7 @@ std::ostream &operator<<(std::ostream &os, StationaryMachine &sm)
 
 void StationaryMachine::setMenu()
 {
-    ComputingMachine::setMenu(); 
+    ComputingMachine::setMenu();
     int choice;
     int intValue;
     ExpInput exp;
@@ -39,7 +39,7 @@ void StationaryMachine::setMenu()
         {
         case 1:
             std::cout << "Введите количество PCI слотов: ";
-            intValue = exp.isNumber();
+            intValue = exp.isNumber(std::cin, 0, INT_MAX);
             setPCISlots(intValue);
             std::cout << "Количество PCI слотов изменено!" << std::endl;
             break;
@@ -57,7 +57,7 @@ std::istream &operator>>(std::istream &is, StationaryMachine &sm)
     ComputingMachine &comp = sm;
     is >> comp;
     std::cout << "Введите количество PCI слотов: ";
-    sm.PCISlots = exp.isNumber();
+    sm.PCISlots = exp.isNumber(std::cin, 0, INT_MAX);
     return is;
 }
 

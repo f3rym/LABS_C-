@@ -9,3 +9,5 @@
 ./header/stationaryMachine.h
 ./header/tablet.h
 ./header.h
+./source/interface.tpp
+./source/listNode.tpp

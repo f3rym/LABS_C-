@@ -16,7 +16,9 @@ public:
     };
     ExpInput(const Exp &other) : Exp(other) {};
     ~ExpInput() = default;
-    int isNumber();
-    bool isBool();
-    std::string isString();
+    int isNumber(std::istream &input);
+    int isNumber(std::istream &input, int minInt, int maxInt);
+    bool isBool(std::istream &input);
+    std::string isString(std::istream &input);
+    std::string isStringWithNumbers(std::istream &input);
 };

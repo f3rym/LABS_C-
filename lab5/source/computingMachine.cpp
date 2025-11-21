@@ -17,11 +17,11 @@ std::istream &operator>>(std::istream &is, ComputingMachine &s)
     ExpInput exp;
     std::cout << "Введите модель: ";
     is.ignore();
-    strcpy_s(s.name, exp.isString().c_str());
+    strcpy_s(s.name, exp.isStringWithNumbers(std::cin).c_str());
     std::cout << "Введите процессор: ";
-    strcpy_s(s.processor, exp.isString().c_str());
+    strcpy_s(s.processor, exp.isStringWithNumbers(std::cin).c_str());
     std::cout << "Введите кол-во ОЗУ(Gb): ";
-    s.ram = exp.isNumber();
+    s.ram = exp.isNumber(std::cin, 0, INT_MAX);
 
     return is;
 }
@@ -59,20 +59,20 @@ void ComputingMachine::setMenu()
         case 1:
             std::cout << "Введите новое название: ";
             std::cin.ignore();
-            strcpy_s(buffer, exp.isString().c_str());
+            strcpy_s(buffer, exp.isString(std::cin).c_str());
             setName(buffer);
             std::cout << "Название изменено!" << std::endl;
             break;
         case 2:
             std::cout << "Введите новый процессор: ";
             std::cin.ignore();
-            strcpy_s(buffer, exp.isString().c_str());
+            strcpy_s(buffer, exp.isStringWithNumbers(std::cin).c_str());
             setProcessor(buffer);
             std::cout << "Процессор изменен!" << std::endl;
             break;
         case 3:
             std::cout << "Введите новый объем RAM (GB): ";
-            intValue = exp.isNumber();
+            intValue = exp.isNumber(std::cin);
             setRam(intValue);
             std::cout << "RAM изменен!" << std::endl;
             break;

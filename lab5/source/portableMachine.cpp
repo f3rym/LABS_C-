@@ -27,9 +27,9 @@ std::istream &operator>>(std::istream &is, portableMachine &pm)
     ComputingMachine &com = pm;
     is >> com;
     std::cout << "Введите ёмкость батареи(mAh): ";
-    pm.batteryHealth = exp.isNumber();
+    pm.batteryHealth = exp.isNumber(std::cin, 0, INT_MAX);
     std::cout << "Введите размер дисплея(дюйм): ";
-    pm.sizeDisplay = exp.isNumber();
+    pm.sizeDisplay = exp.isNumber(std::cin, 0, INT_MAX);
 
     return is;
 }
@@ -60,13 +60,13 @@ void portableMachine::setMenu()
         {
         case 1:
             std::cout << "Введите новую емкость батареи (mAh): ";
-            intValue = exp.isNumber();
+            intValue = exp.isNumber(std::cin, 0, INT_MAX);
             setBatteryHealth(intValue);
             std::cout << "Емкость батареи изменена!" << std::endl;
             break;
         case 2:
             std::cout << "Введите новый размер дисплея (дюймы): ";
-            intValue = exp.isNumber();
+            intValue = exp.isNumber(std::cin, 0, INT_MAX);
             setSizeDisplay(intValue);
             std::cout << "Размер дисплея изменен!" << std::endl;
             break;

@@ -6,6 +6,7 @@
 #include <cstring>
 #include <string>
 #include <conio.h>
+#include <limits>
 
 #define MAX_STR 80
 #define MAX_CMP 20
@@ -22,9 +23,6 @@ template <typename T>
 class Node;
 
 void waitForAnyKey();
-void mn_menu();
-void laptops_menu();
-void tablets_menu();
-
 int againProg();
+
 #endif

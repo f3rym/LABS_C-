@@ -30,7 +30,7 @@ std::istream &operator>>(std::istream &is, Tablet &Tablet)
     is >> pm;
     std::cout << "Введите операционную систему: ";
     is.ignore();
-    strcpy_s(Tablet.OS, exp.isString().c_str());
+    strcpy_s(Tablet.OS, exp.isString(std::cin).c_str());
     return is;
 }
 
@@ -60,7 +60,7 @@ void Tablet::setMenu()
         case 1:
             std::cout << "Введите новую операционную систему: ";
             std::cin.ignore();
-            strcpy_s(buffer, exp.isString().c_str());
+            strcpy_s(buffer, exp.isString(std::cin).c_str());
             setOS(buffer);
             std::cout << "Операционная система изменена!" << std::endl;
             break;

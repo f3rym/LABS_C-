@@ -1,5 +1,6 @@
 #include "../header.h"
 #include "../header/interface.h"
+#include "../header/ExpInput.h"
 
 template <class T>
 void Interface<T>::menu() 
@@ -8,6 +9,7 @@ void Interface<T>::menu()
 
     do
     {
+        ExpInput exp;
         Interface<MonoBlock> monoObj;
         Interface<Laptop> laptopObj;
         Interface<Tablet> tabletObj;
@@ -17,7 +19,7 @@ void Interface<T>::menu()
         std::cout << "3. Работа с планшетами" << std::endl;
         std::cout << "0. Выход" << std::endl;
         std::cout << "=========================================" << std::endl;
-        std::cin >> choice;
+        choice = exp.isNumber(std::cin);
         switch (choice)
         {
         case 0:
@@ -77,6 +79,7 @@ void Interface<T>::sortMonoblocksByRAM()
 template <class T>
 void Interface<T>::fun()
 {
+    ExpInput exp;
     system("cls");
     int choice;
     do
@@ -88,8 +91,7 @@ void Interface<T>::fun()
         std::cout << "5. Сортировка" << std::endl;
         std::cout << "0. Назад" << std::endl;
         std::cout << "=========================================" << std::endl;
-        std::cin >> choice;
-
+        choice = exp.isNumber(std::cin);
         switch (choice)
         {
         case 1:

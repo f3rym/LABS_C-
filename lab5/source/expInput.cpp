@@ -1,8 +1,7 @@
 #include "../header.h"
 #include "../header/ExpInput.h"
-#include <limits>
 
-int ExpInput::isNumber()
+int ExpInput::isNumber(std::istream &input)
 {
     while (true)
     {
@@ -11,9 +10,15 @@ int ExpInput::isNumber()
             int num;
             std::cout << "(ожидается число): ";
 
-            if (std::cin >> num) 
+            if (input >> num)
             {
-                std::cin.ignore(INT_MAX, '\n');
+                if (input.peek() != '\n' && input.peek() != EOF)
+                {
+                    input.clear();
+                    input.ignore(INT_MAX, '\n');
+                    throw ExpInput(", число введено не корректно", 3);
+                }
+                input.ignore(INT_MAX, '\n');
                 if (num > INT_MAX || num < INT_MIN)
                 {
                     throw ExpInput(", значение вышло за границы", 2);
@@ -21,17 +26,10 @@ int ExpInput::isNumber()
 
                 return num;
             }
-            else if (std::cin.peek() != '\n')
-            {
-                std::cin.clear();
-                std::cin.ignore(INT_MAX, '\n');
-
-                throw ExpInput(", число введено не корректно", 3);
-            }
             else
             {
-                std::cin.clear();
-                std::cin.ignore(INT_MAX, '\n');
+                input.clear();
+                input.ignore(INT_MAX, '\n');
 
                 throw ExpInput(", введено не число", 1);
             }
@@ -43,7 +41,47 @@ int ExpInput::isNumber()
     }
 }
 
-bool ExpInput::isBool()
+int ExpInput::isNumber(std::istream &input, int minInt, int maxInt)
+{
+    while (true)
+    {
+        try
+        {
+            int num;
+            std::cout << "(ожидается число): ";
+
+            if (input >> num)
+            {
+                if (input.peek() != '\n' && input.peek() != EOF)
+                {
+                    input.clear();
+                    input.ignore(INT_MAX, '\n');
+                    throw ExpInput(", число введено не корректно", 3);
+                }
+                input.ignore(INT_MAX, '\n');
+                if (num >= maxInt || num <= minInt)
+                {
+                    throw ExpInput(", значение вышло за заданные границы", 12);
+                }
+
+                return num;
+            }
+            else
+            {
+                input.clear();
+                input.ignore(INT_MAX, '\n');
+
+                throw ExpInput(", введено не число", 1);
+            }
+        }
+        catch (const ExpInput &e)
+        {
+            std::cout << e.message << e.err << " [ code: " << e.code << " ]" << std::endl;
+        }
+    }
+}
+
+bool ExpInput::isBool(std::istream &input)
 {
     while (true)
     {
@@ -52,15 +90,15 @@ bool ExpInput::isBool()
             bool var;
             std::cout << "(ожидается 0 или 1): ";
 
-            if (std::cin >> var)
+            if (input >> var)
             {
-                std::cin.ignore(INT_MAX, '\n');
+                input.ignore(INT_MAX, '\n');
                 return var;
             }
             else
             {
-                std::cin.clear();
-                std::cin.ignore(INT_MAX, '\n');
+                input.clear();
+                input.ignore(INT_MAX, '\n');
                 throw ExpInput(", введено не bool", 4);
             }
         }
@@ -71,7 +109,7 @@ bool ExpInput::isBool()
     }
 }
 
-std::string ExpInput::isString()
+std::string ExpInput::isString(std::istream &input)
 {
     while (true)
     {
@@ -79,7 +117,7 @@ std::string ExpInput::isString()
         {
             char str[MAX_STR];
             std::cout << "(ожидается строка): ";
-            std::cin.getline(str, MAX_STR);
+            input.getline(str, MAX_STR);
             if (str[0] == '\0')
             {
                 throw ExpInput(", строка пуста", 5);
@@ -109,7 +147,52 @@ std::string ExpInput::isString()
         catch (const ExpInput &e)
         {
             std::cout << e.message << e.err << " [ code: " << e.code << " ]" << std::endl;
-            std::cin.clear();
+            input.clear();
+        }
+    }
+}
+
+std::string ExpInput::isStringWithNumbers(std::istream &input)
+{
+    while (true)
+    {
+        try
+        {
+            char str[MAX_STR];
+            std::cout << "(ожидается строка с использ. цифр): ";
+            input.getline(str, MAX_STR);
+
+            if (str[0] == '\0')
+            {
+                throw ExpInput(", строка пуста", 5);
+            }
+            else
+            {
+                for (int i = 0; str[i] != '\0'; i++)
+                {
+                    unsigned char c = str[i];
+                    if (!(c >= 'a' && c <= 'z') &&
+                        !(c >= 'A' && c <= 'Z') &&
+                        !(c >= '0' && c <= '9') &&
+                        c != ' ' && c != '\'' && c != '-')
+                    {
+                        if (c > 127)
+                        {
+                            throw ExpInput(", строка имеет не-ASCII символы", 6);
+                        }
+                        else
+                        {
+                            throw ExpInput(", строка содержит запрещенные символы", 8);
+                        }
+                    }
+                }
+                return str;
+            }
+        }
+        catch (const ExpInput &e)
+        {
+            std::cout << e.message << e.err << " [ code: " << e.code << " ]" << std::endl;
+            input.clear();
         }
     }
 }

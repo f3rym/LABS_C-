@@ -26,7 +26,7 @@ std::istream &operator>>(std::istream &is, Laptop &Laptop)
     portableMachine &pm = Laptop;
     is >> pm;
     std::cout << "Есть подсветка клавиатуры? (1-да, 0-нет): ";
-    Laptop.hasBacklitKeyboard = exp.isBool();
+    Laptop.hasBacklitKeyboard = exp.isBool(std::cin);
     return is;
 }
 
@@ -62,7 +62,7 @@ void Laptop::setMenu()
         {
         case 1:
             std::cout << "Подсветка клавиатуры (1 - Есть, 0 - Нет): ";
-            boolValue = exp.isBool();
+            boolValue = exp.isBool(std::cin);
             setHasBacklitKeyboard(boolValue);
             std::cout << "Параметр подсветки клавиатуры изменен!" << std::endl;
             break;
