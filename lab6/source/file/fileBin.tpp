@@ -30,7 +30,7 @@ void FileBin<T>::readLinkedList(LinkedList<T> &list)
     exp.isOpenFile(file);
     list.free();
     int loaded = 0;
-    while (!file.eof())
+    while (file.peek() != EOF)
     {
         T obj;
         file.read(reinterpret_cast<char *>(&obj), sizeof(T));

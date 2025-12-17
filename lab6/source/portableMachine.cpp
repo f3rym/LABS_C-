@@ -95,17 +95,22 @@ void portableMachine::setSizeDisplay(int sizeDisplay)
 void portableMachine::writeToStream(std::ostream &os) const
 {
     ComputingMachine::writeToStream(os);
-    os << ' ' << getBatteryHealth() << ' ' << getSizeDisplay();
+    os << ';' << getBatteryHealth() << ';' << getSizeDisplay();
 }
 
 void portableMachine::readFromStream(std::istream &is)
 {
     ComputingMachine::readFromStream(is);
+    char delimiter = ';';
     int battery = 0;
     int sizeD = 0;
+    if (!(is >> delimiter))
+        return;
     if (!(is >> battery))
         return;
-    if (!(is >> sizeD))
+    if (!(is >> delimiter))
+        return;
+    if (!(is >>  sizeD))
         return;
     is.ignore();
     setBatteryHealth(battery);

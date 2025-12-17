@@ -22,11 +22,11 @@ std::ostream &operator<<(std::ostream &os, const StationaryMachine &sm)
 
 void StationaryMachine::readFromStream(std::istream &is)
 {
-    // char brandBuffer[16];
-    // is.read(brandBuffer, 15);
-    // brandBuffer[15] = '\0';
     ComputingMachine::readFromStream(is);
+    char delimiter = ';';
     int pci = 0;
+    if (!(is >> delimiter))
+        return;
     if (!(is >> pci))
         return;
     is.ignore();
@@ -36,7 +36,7 @@ void StationaryMachine::readFromStream(std::istream &is)
 void StationaryMachine::writeToStream(std::ostream &os) const
 {
     ComputingMachine::writeToStream(os);
-    os << ' ' << getPCISlots();
+    os << ';' << getPCISlots();
 }
 void StationaryMachine::setMenu()
 {

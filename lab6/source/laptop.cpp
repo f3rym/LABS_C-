@@ -24,17 +24,18 @@ std::ostream &operator<<(std::ostream &os, const Laptop &Laptop)
 void Laptop::writeToStream(std::ostream &os) const
 {
     portableMachine::writeToStream(os);
-    os << ' ' << (getHasBacklitKeyboard() ? 1 : 0) << '\n';
+    os << ';' << (getHasBacklitKeyboard() ? 1 : 0) << '\n';
 }
 
 void Laptop::readFromStream(std::istream &is)
 {
     portableMachine::readFromStream(is);
+    char delimiter = ';';
     int v = 0;
     if (!(is >> v))
         return;
     is.ignore();
-    setHasBacklitKeyboard(v != 0);
+    setHasBacklitKeyboard(v);
 }
 
 std::istream &operator>>(std::istream &is, Laptop &Laptop)

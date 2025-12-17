@@ -174,8 +174,8 @@ void Interface<T>::fun()
         }
         case 6:
         {
-            char files[80][10] = ("monoblocks.txt", "laptops.txt", "tablets.txt")
-                std::string filename;
+            const char *files[] = {"files/monoblocks.txt", "files/laptops.txt", "files/tablets.txt"};
+            std::string filename;
             if (std::is_same<T, MonoBlock>::value)
                 filename = files[0];
             else if (std::is_same<T, Laptop>::value)
@@ -191,8 +191,8 @@ void Interface<T>::fun()
         }
         case 7:
         {
-            char files[80][10] = ("monoblocks.txt", "laptops.txt", "tablets.txt")
-                std::string defaultFilename;
+            const char *files[] = {"files/monoblocks.txt", "files/laptops.txt", "files/tablets.txt"};
+            std::string defaultFilename;
             if (std::is_same<T, MonoBlock>::value)
                 defaultFilename = files[0];
             else if (std::is_same<T, Laptop>::value)
@@ -207,14 +207,14 @@ void Interface<T>::fun()
         }
         case 8:
         {
-
+            const char *files[] = {"files/monoblocks", "files/laptops", "files/tablets"};
             std::string filename;
             if (std::is_same<T, MonoBlock>::value)
-                filename = "monoblocks";
+                filename = files[0];
             else if (std::is_same<T, Laptop>::value)
-                filename = "laptops";
+                filename = files[1];
             else if (std::is_same<T, Tablet>::value)
-                filename = "tablets";
+                filename = files[2];
 
             FileBin<T> file(filename);
             file.writeLinkedList(computer);
@@ -224,13 +224,14 @@ void Interface<T>::fun()
         }
         case 9:
         {
+            const char *files[] = {"files/monoblocks", "files/laptops", "files/tablets"};
             std::string defaultFilename;
             if (std::is_same<T, MonoBlock>::value)
-                defaultFilename = "monoblocks";
+                defaultFilename = files[0];
             else if (std::is_same<T, Laptop>::value)
-                defaultFilename = "laptops";
+                defaultFilename = files[1];
             else if (std::is_same<T, Tablet>::value)
-                defaultFilename = "tablets";
+                defaultFilename = files[2];
             FileBin<T> file(defaultFilename);
             file.readLinkedList(computer);
 

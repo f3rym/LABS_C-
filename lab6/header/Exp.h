@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../header.h"
 
 class Exp
@@ -5,7 +7,6 @@ class Exp
 protected:
     int code;
     char message[MAX_STR];
-
 public:
     Exp()
     {

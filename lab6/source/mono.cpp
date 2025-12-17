@@ -29,17 +29,20 @@ std::ostream &operator<<(std::ostream &os, const MonoBlock &mb)
 void MonoBlock::writeToStream(std::ostream &os) const
 {
     StationaryMachine::writeToStream(os);
-    os << ' ' << getSizeDisplay() << ' ' << (getTouchScreen() ? 1 : 0) << '\n';
+    os << ';' << getSizeDisplay() << ';' << (getTouchScreen() ? 1 : 0) << '\n';
 }
 
 void MonoBlock::readFromStream(std::istream &is)
 {
     StationaryMachine::readFromStream(is);
+    char delimiter = ';';
     int sz = 0;
     int ts = 0;
     if (!(is >> sz))
         return;
-    if (!(is >> ts))
+    if (!(is >> delimiter))
+        return;
+    if (!(is >>  ts))
         return;
     is.ignore();
     setTouchScreen(ts);

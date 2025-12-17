@@ -1,4 +1,4 @@
-#include "FileExp.h"
+#include "../header/file/FileExp.h"
 #include <fstream>
 #include <iostream>
 
@@ -33,17 +33,21 @@ bool FileExcept::isWriteFile(Stream &f)
     {
         if (!f.is_open())
         {
-            throw FileExcept(40, ", файл не открыт");
+            throw FileExcept(40, "Ошибка: файл не открыт для записи");
         }
-        if (f.fail() || f.bad())
+        if (f.fail())
         {
-            throw FileExcept(41, ", поток файла в состоянии ошибки");
+            throw FileExcept(41, "Ошибка: сбой в потоке файла");
+        }
+        if (f.bad())
+        {
+            throw FileExcept(42, "Ошибка: поток файла повреждён");
         }
         return true;
     }
     catch (const FileExcept &e)
     {
-        std::cout << e.message << e.error << " [ code: " << e.code << " ]" << std::endl;
+        std::cerr << "Исключение: " << e.message << e.error << " [Код: " << e.code << "]" << std::endl;
         return false;
     }
 }

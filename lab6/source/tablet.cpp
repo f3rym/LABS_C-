@@ -25,14 +25,14 @@ std::ostream &operator<<(std::ostream &os, const Tablet &Tablet)
 void Tablet::writeToStream(std::ostream &os) const
 {
     portableMachine::writeToStream(os);
-    os << ' ' << getOS() << '\n';
+    os << ';' << getOS() << '\n';
 }
 
 void Tablet::readFromStream(std::istream &is)
 {
     portableMachine::readFromStream(is);
     std::string osStr;
-    if (!(is >> osStr))
+    if (!std::getline(is, osStr))
         return;
     char buf[MAX_STR];
     strcpy_s(buf, MAX_STR, osStr.c_str());
@@ -46,7 +46,6 @@ std::istream &operator>>(std::istream &is, Tablet &Tablet)
     portableMachine &pm = Tablet;
     is >> pm;
     std::cout << "Введите операционную систему: ";
-    is.ignore();
     strcpy_s(Tablet.OS, exp.isString(std::cin).c_str());
     return is;
 }

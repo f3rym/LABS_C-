@@ -94,15 +94,20 @@ void ComputingMachine::info()
 
 void ComputingMachine::writeToStream(std::ostream &os) const
 {
-    os << this->name << ' ' << getProcessor() << ' ' << getRam();
+    os << this->name << ';' << getProcessor() << ';' << getRam();
 }
 
 void ComputingMachine::readFromStream(std::istream &is)
 {
     std::string name;
     std::string processor;
+    char delimiter = ';';
     int ramVal = 0;
-    if (!(is >> name >> processor >> ramVal))
+    if (!std::getline(is, name, delimiter))
+        return;
+    if (!std::getline(is, processor, delimiter))
+        return;
+    if (!(is >> ramVal))
         return;
     char buf[MAX_STR];
     strcpy_s(buf, MAX_STR, name.c_str());
